@@ -1,0 +1,33 @@
+language: android
+
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - build-tools-23.0.3
+    - android-23
+    - sys-img-x86-android-23
+    - add-on
+    - extra
+  licenses:
+    - '.+'
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+before_install:
+  - export JAVA7_HOME=/usr/lib/jvm/java-7-oracle
+  - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
+  - export JAVA_HOME=$JAVA7_HOME
+
+script:
+  - ./gradlew clean assemble || ./gradlew clean assemble

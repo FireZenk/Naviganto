@@ -57,7 +57,7 @@ Finally, to implement a route, implement from the `Routable` the following metho
 ```java
 @Override public void route(@NonNull Context context, @NonNull Bundle parameters, @Nullable Object viewParent)
             throws ParameterNotFoundException, NotEnoughParametersException {
-	// How to opening our Activuty or View
+	// How to opening our Activity or View
 }
 ```
 

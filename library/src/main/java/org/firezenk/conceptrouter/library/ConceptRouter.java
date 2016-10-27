@@ -32,18 +32,23 @@ public class ConceptRouter {
     }
 
     public boolean back(@NonNull Context context) {
-        if (history.isEmpty())
+        if (history.isEmpty()) {
             return false;
-        else
+        } else {
             history.pop();
+        }
 
-        if (history.peek().viewParent == null)
-            history.pop();
-
-        if (history.isEmpty())
+        if (history.isEmpty()) {
             return false;
-        else
+        } else if (history.peek().viewParent == null) {
+            history.pop();
+        }
+
+        if (history.isEmpty()) {
+            return false;
+        } else {
             this.routeTo(context, history.pop());
+        }
 
         return true;
     }

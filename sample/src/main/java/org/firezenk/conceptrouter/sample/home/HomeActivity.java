@@ -30,4 +30,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override public void onBackPressed() {
+        if (!ConceptRouter.get().back(this))
+            super.onBackPressed();
+    }
 }

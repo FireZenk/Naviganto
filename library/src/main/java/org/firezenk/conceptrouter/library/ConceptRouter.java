@@ -20,8 +20,9 @@ public class ConceptRouter {
     }
 
     public void routeTo(@NonNull Context context, @NonNull Route route) {
+        final Route prev = history.peek();
         try {
-            if (history.isEmpty() || !history.peek().equals(route)) {
+            if (prev == null || !prev.equals(route)) {
                 ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
                 history.addFirst(route);
             }
@@ -52,4 +53,5 @@ public class ConceptRouter {
 
         return true;
     }
+
 }

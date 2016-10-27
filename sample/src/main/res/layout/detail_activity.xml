@@ -22,9 +22,16 @@
 
     <Button
         android:id="@+id/next"
+        android:layout_above="@+id/act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="next"/>
+
+    <Button
+        android:id="@+id/act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="next"/>
+        android:text="other act"/>
 
 </RelativeLayout>

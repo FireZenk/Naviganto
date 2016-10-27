@@ -10,6 +10,7 @@ import android.widget.Button;
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
 import org.firezenk.conceptrouter.sample.R;
+import org.firezenk.conceptrouter.sample.home.HomeRoute;
 import org.firezenk.conceptrouter.sample.product.ProductRoute;
 import org.firezenk.conceptrouter.sample.profile.ProfileRoute;
 
@@ -25,10 +26,17 @@ public class DetailActivity extends AppCompatActivity {
 
         final ViewGroup placeholder = (ViewGroup) findViewById(R.id.placeholder);
         final Button nextButton = (Button) findViewById(R.id.next);
+        final Button actButton = (Button) findViewById(R.id.act);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductRoute.class, new Bundle(), placeholder));
+            }
+        });
+
+        actButton.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                ConceptRouter.get().routeTo(DetailActivity.this, new Route(HomeRoute.class, new Bundle()));
             }
         });
 

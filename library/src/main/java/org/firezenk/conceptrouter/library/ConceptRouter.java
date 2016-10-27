@@ -21,7 +21,7 @@ public class ConceptRouter {
 
     public void routeTo(@NonNull Context context, @NonNull Route route) {
         try {
-            if (!history.contains(route)) {
+            if (history.isEmpty() || !history.peek().equals(route)) {
                 ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
                 history.addFirst(route);
             }

@@ -3,12 +3,12 @@ package org.firezenk.conceptrouter.sample.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.ViewGroup;
 
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
 import org.firezenk.conceptrouter.sample.R;
-import org.firezenk.conceptrouter.sample.detail.DetailRoute;
+import org.firezenk.conceptrouter.sample.info.InfoRoute;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
@@ -20,15 +20,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_activity);
 
-        findViewById(R.id.open_detail).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                final Bundle bundle = new Bundle();
-                bundle.putString("model1", "hi!");
-                bundle.putString("model2", "bye!");
+        final ViewGroup placeholder = (ViewGroup) findViewById(R.id.placeholder);
 
-                ConceptRouter.get().routeTo(HomeActivity.this, new Route(DetailRoute.class, bundle));
-            }
-        });
+        ConceptRouter.get().routeTo(this, new Route(InfoRoute.class, new Bundle(), placeholder));
     }
 
     @Override public void onBackPressed() {

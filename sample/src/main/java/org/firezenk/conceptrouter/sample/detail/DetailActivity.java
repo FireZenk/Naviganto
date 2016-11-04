@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
+import org.firezenk.conceptrouter.processor.annotations.RoutableActivity;
 import org.firezenk.conceptrouter.sample.R;
 import org.firezenk.conceptrouter.sample.home.HomeRoute;
 import org.firezenk.conceptrouter.sample.product.ProductRoute;
@@ -18,6 +19,10 @@ import org.firezenk.conceptrouter.sample.profile.ProfileRoute;
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
+@RoutableActivity(
+        target = DetailActivity.class,
+        extras = {String.class, View.class}
+)
 public class DetailActivity extends AppCompatActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {

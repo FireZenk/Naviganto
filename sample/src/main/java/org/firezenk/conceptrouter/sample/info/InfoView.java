@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
 import org.firezenk.conceptrouter.sample.R;
-import org.firezenk.conceptrouter.sample.detail.DetailRoute;
+import org.firezenk.conceptrouter.sample.detail.DetailActivityRoute;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
@@ -26,7 +26,7 @@ class InfoView extends FrameLayout {
                 bundle.putString("model1", "hi!");
                 bundle.putString("model2", "bye!");
 
-                ConceptRouter.get().routeTo(getContext(), new Route(DetailRoute.class, bundle));
+                ConceptRouter.get().routeTo(getContext(), new Route(DetailActivityRoute.class, bundle));
             }
         });
     }

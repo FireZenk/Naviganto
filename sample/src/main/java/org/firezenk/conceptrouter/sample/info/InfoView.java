@@ -1,7 +1,6 @@
 package org.firezenk.conceptrouter.sample.info;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -22,11 +21,11 @@ class InfoView extends FrameLayout {
 
         findViewById(R.id.open_detail).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                final Bundle bundle = new Bundle();
-                bundle.putString("model1", "hi!");
-                bundle.putString("model2", "bye!");
+                final Object[] params = new Object[2];
+                params[0] = "hi!";
+                params[1] = "bye!";
 
-                ConceptRouter.get().routeTo(getContext(), new Route(DetailActivityRoute.class, bundle));
+                ConceptRouter.get().routeTo(getContext(), new Route(DetailActivityRoute.class, params));
             }
         });
     }

@@ -15,7 +15,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface RoutableActivity {
 
-    Class target();
-
-    Class[] extras();
+    Class[] value();
 }

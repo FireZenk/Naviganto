@@ -4,17 +4,14 @@ import com.google.auto.service.AutoService;
 import com.google.common.collect.ImmutableSet;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.firezenk.conceptrouter.processor.annotations.RoutableActivity;
 import org.firezenk.conceptrouter.processor.annotations.RoutableView;
 import org.firezenk.conceptrouter.processor.exceptions.NotEnoughParametersException;
 import org.firezenk.conceptrouter.processor.exceptions.ParameterNotFoundException;
-import org.firezenk.conceptrouter.processor.interfaces.Routable;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,13 +21,10 @@ import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
-
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
@@ -106,7 +100,14 @@ public class RouteProcessor extends AbstractProcessor {
     private MethodSpec addRouteMethod(TypeElement typeElement) {
         messager.printMessage(Diagnostic.Kind.NOTE, "Generating route method");
 
-        final List<TypeMirror> params = this.getParameters(typeElement.getAnnotation(RoutableActivity.class));
+        boolean isActivity;
+        List<TypeMirror> params;
+
+        if (isActivity = (typeElement.getAnnotation(RoutableActivity.class) != null))
+            params = this.getParameters(typeElement.getAnnotation(RoutableActivity.class));
+        else
+            params = this.getParameters(typeElement.getAnnotation(RoutableView.class));
+
         final StringBuilder sb = new StringBuilder();
 
         sb.append("" +
@@ -123,7 +124,19 @@ public class RouteProcessor extends AbstractProcessor {
             ++i;
         }
 
-        // TODO GENERATE START ACTIVITY OR ADD TO VIEW
+        if (isActivity) {
+            sb.append("  ((android.content.Context) context).startActivity(" +
+                    "new android.content.Intent((android.content.Context) context, " + typeElement.getSimpleName() + ".class));\n");
+        } else {
+            sb.append("" +
+                    "  if (viewParent == null || !(viewParent instanceof android.view.ViewGroup)) {\n" +
+                    "      throw new ParameterNotFoundException(\"Need a view parent or is not a ViewGroup\");\n" +
+                    "  }\n");
+
+            sb.append("" +
+                    "((android.view.ViewGroup) viewParent).removeAllViews();\n" +
+                    "((android.view.ViewGroup) viewParent).addView(new " + typeElement.getSimpleName() + "((android.content.Context) context));");
+        }
 
         messager.printMessage(Diagnostic.Kind.NOTE, sb.toString());
 
@@ -144,15 +157,23 @@ public class RouteProcessor extends AbstractProcessor {
         messager.printMessage(Diagnostic.Kind.NOTE, "Saving route file...");
         return TypeSpec.classBuilder(typeElement.getSimpleName() + "Route")
                 .addModifiers(Modifier.PUBLIC)
-                .superclass(TypeName.get(typeElement.asType()))
-                .addSuperinterface(Routable.class)
+                .addSuperinterface(org.firezenk.conceptrouter.processor.interfaces.Routable.class)
                 .addMethods(methods)
                 .build();
     }
 
     private List<TypeMirror> getParameters(RoutableActivity annotation) {
         try {
-            annotation.extras();
+            annotation.value();
+        } catch (MirroredTypesException e) {
+            return (List<TypeMirror>) e.getTypeMirrors();
+        }
+        return null;
+    }
+
+    private List<TypeMirror> getParameters(RoutableView annotation) {
+        try {
+            annotation.value();
         } catch (MirroredTypesException e) {
             return (List<TypeMirror>) e.getTypeMirrors();
         }

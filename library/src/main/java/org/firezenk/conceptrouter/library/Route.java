@@ -11,7 +11,8 @@ import android.support.annotation.Nullable;
 public class Route {
 
     @NonNull Class clazz;
-    @NonNull Bundle bundle;
+    @Nullable Bundle bundle;
+    @Nullable Object[] params;
     @Nullable Object viewParent;
 
     public Route(@NonNull Class clazz, @NonNull Bundle bundle) {
@@ -19,9 +20,20 @@ public class Route {
         this.bundle = bundle;
     }
 
+    public Route(@NonNull Class clazz, @NonNull Object[] params) {
+        this.clazz = clazz;
+        this.params = params;
+    }
+
     public Route(@NonNull Class clazz, @NonNull Bundle bundle, @Nullable Object viewParent) {
         this.clazz = clazz;
         this.bundle = bundle;
+        this.viewParent = viewParent;
+    }
+
+    public Route(@NonNull Class clazz, @NonNull Object[] params, @Nullable Object viewParent) {
+        this.clazz = clazz;
+        this.params = params;
         this.viewParent = viewParent;
     }
 

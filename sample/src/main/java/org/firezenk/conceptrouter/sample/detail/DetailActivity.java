@@ -12,17 +12,14 @@ import org.firezenk.conceptrouter.library.Route;
 import org.firezenk.conceptrouter.processor.annotations.RoutableActivity;
 import org.firezenk.conceptrouter.sample.R;
 import org.firezenk.conceptrouter.sample.home.HomeRoute;
-import org.firezenk.conceptrouter.sample.product.ProductRoute;
+import org.firezenk.conceptrouter.sample.product.ProductViewRoute;
 import org.firezenk.conceptrouter.sample.profile.ProfileRoute;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
-@RoutableActivity(
-        target = DetailActivity.class,
-        extras = {String.class, View.class}
-)
+@RoutableActivity({String.class, String.class})
 public class DetailActivity extends AppCompatActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductRoute.class, new Bundle(), placeholder));
+                ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductViewRoute.class, new Object[0], placeholder));
             }
         });
 

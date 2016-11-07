@@ -129,11 +129,13 @@ public class RouteProcessor extends AbstractProcessor {
 
         if (isActivity) {
             sb.append("  final android.content.Intent intent = new android.content.Intent((android.content.Context) context, " + typeElement.getSimpleName() + ".class);\n");
-            sb.append("  android.os.Bundle bundle = new android.os.Bundle();\n\n");
 
-            sb.append(this.parametersToBundle(params));
+            if (params.size() > 0) {
+                sb.append("  android.os.Bundle bundle = new android.os.Bundle();\n\n");
+                sb.append(this.parametersToBundle(params));
+                sb.append("  intent.putExtras(bundle);\n");
+            }
 
-            sb.append("  intent.putExtras(bundle);\n");
             sb.append("  ((android.content.Context) context).startActivity(intent);\n");
         } else {
             sb.append("" +
@@ -141,9 +143,15 @@ public class RouteProcessor extends AbstractProcessor {
                     "      throw new ParameterNotFoundException(\"Need a view parent or is not a ViewGroup\");\n" +
                     "  }\n");
 
-            sb.append("" +
-                    "  ((android.view.ViewGroup) viewParent).removeAllViews();\n" +
-                    "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context));");
+            if (params.size() > 0) {
+                sb.append("" +
+                        "  ((android.view.ViewGroup) viewParent).removeAllViews();\n" +
+                        "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context " + this.parametersToString(params) + "));\n");
+            } else {
+                sb.append("" +
+                        "  ((android.view.ViewGroup) viewParent).removeAllViews();\n" +
+                        "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context));\n");
+            }
         }
 
         messager.printMessage(Diagnostic.Kind.NOTE, sb.toString());
@@ -159,6 +167,18 @@ public class RouteProcessor extends AbstractProcessor {
                 .addParameter(Object.class, "viewParent")
                 .addCode(sb.toString())
                 .build();
+    }
+
+    private String parametersToString(List<TypeMirror> params) {
+        final StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+        for (TypeMirror tm : params) {
+            sb.append(", (" + tm.toString() + ") parameters[" + i + "]");
+            ++i;
+        }
+
+        return sb.toString();
     }
 
     private String parametersToBundle(List<TypeMirror> params) {

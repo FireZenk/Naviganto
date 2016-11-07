@@ -16,6 +16,8 @@ import org.firezenk.conceptrouter.sample.home.HomeRoute;
 import org.firezenk.conceptrouter.sample.product.ProductViewRoute;
 import org.firezenk.conceptrouter.sample.profile.ProfileRoute;
 
+import java.util.Random;
+
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
@@ -36,7 +38,9 @@ public class DetailActivity extends AppCompatActivity {
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductViewRoute.class, new Object[0], placeholder));
+                final Object[] params = new Object[1];
+                params[0] = new Random().nextDouble();
+                ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductViewRoute.class, params, placeholder));
             }
         });
 

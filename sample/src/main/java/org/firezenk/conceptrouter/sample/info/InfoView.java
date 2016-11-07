@@ -21,9 +21,10 @@ class InfoView extends FrameLayout {
 
         findViewById(R.id.open_detail).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                final Object[] params = new Object[2];
-                params[0] = "hi!";
-                params[1] = "bye!";
+                final Object[] params = new Object[3];
+                params[0] = "This is the detail param 0";
+                params[1] = " and this is the detail param 1 ";
+                params[2] = 101;
 
                 ConceptRouter.get().routeTo(getContext(), new Route(DetailActivityRoute.class, params));
             }

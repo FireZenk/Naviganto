@@ -26,6 +26,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypesException;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 
@@ -124,9 +125,16 @@ public class RouteProcessor extends AbstractProcessor {
             ++i;
         }
 
+        sb.append("\n");
+
         if (isActivity) {
-            sb.append("  ((android.content.Context) context).startActivity(" +
-                    "new android.content.Intent((android.content.Context) context, " + typeElement.getSimpleName() + ".class));\n");
+            sb.append("  final android.content.Intent intent = new android.content.Intent((android.content.Context) context, " + typeElement.getSimpleName() + ".class);\n");
+            sb.append("  android.os.Bundle bundle = new android.os.Bundle();\n\n");
+
+            sb.append(this.parametersToBundle(params));
+
+            sb.append("  intent.putExtras(bundle);\n");
+            sb.append("  ((android.content.Context) context).startActivity(intent);\n");
         } else {
             sb.append("" +
                     "  if (viewParent == null || !(viewParent instanceof android.view.ViewGroup)) {\n" +
@@ -134,8 +142,8 @@ public class RouteProcessor extends AbstractProcessor {
                     "  }\n");
 
             sb.append("" +
-                    "((android.view.ViewGroup) viewParent).removeAllViews();\n" +
-                    "((android.view.ViewGroup) viewParent).addView(new " + typeElement.getSimpleName() + "((android.content.Context) context));");
+                    "  ((android.view.ViewGroup) viewParent).removeAllViews();\n" +
+                    "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context));");
         }
 
         messager.printMessage(Diagnostic.Kind.NOTE, sb.toString());
@@ -151,6 +159,58 @@ public class RouteProcessor extends AbstractProcessor {
                 .addParameter(Object.class, "viewParent")
                 .addCode(sb.toString())
                 .build();
+    }
+
+    private String parametersToBundle(List<TypeMirror> params) {
+        final StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+        for (TypeMirror tm : params) {
+
+            final String extra = "parameters[" + i + "]);\n";
+            final String casting = "(" + tm.toString() + ") ";
+
+            switch (tm.toString()) {
+                case "java.lang.Boolean":
+                    sb.append("  bundle.putBoolean(\"bool" + i + "\", ");
+                    sb.append(casting);
+                    sb.append(extra);
+                    break;
+                case "java.lang.Integer":
+                    sb.append("  bundle.putInt(\"int" + i + "\", ");
+                    sb.append(casting);
+                    sb.append(extra);
+                    break;
+                case "java.lang.Character":
+                    sb.append("  bundle.putChar(\"char" + i + "\", ");
+                    sb.append(casting);
+                    sb.append(extra);
+                    break;
+                case "java.lang.Float":
+                    sb.append("  bundle.putFloat(\"float" + i + "\", ");
+                    sb.append(casting);
+                    sb.append(extra);
+                    break;
+                case "java.lang.Double":
+                    sb.append("  bundle.putDouble(\"double" + i + "\", ");
+                    sb.append(casting);
+                    sb.append(extra);
+                    break;
+                case "java.lang.String":
+                    sb.append("  bundle.putString(\"string" + i + "\", ");
+                    sb.append(casting);
+                    sb.append(extra);
+                    break;
+                default:
+                    sb.append("  bundle.putParcelable(\"parcelable" + i + "\", (android.os.Parcelable) " + extra);
+                    break;
+            }
+
+            sb.append("\n");
+            ++i;
+        }
+
+        return sb.toString();
     }
 
     private TypeSpec createRoute(TypeElement typeElement, ArrayList<MethodSpec> methods) {

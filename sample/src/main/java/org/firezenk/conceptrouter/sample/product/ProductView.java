@@ -13,6 +13,10 @@ import org.firezenk.conceptrouter.sample.R;
 @RoutableView({})
 class ProductView extends FrameLayout {
 
+    public static ProductView newInstance(Context context) {
+        return new ProductView(context);
+    }
+
     public ProductView(Context context) {
         super(context);
         inflate(getContext(), R.layout.feature_product, this);

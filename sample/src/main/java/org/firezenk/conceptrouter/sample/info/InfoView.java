@@ -1,14 +1,13 @@
 package org.firezenk.conceptrouter.sample.info;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
 import org.firezenk.conceptrouter.sample.R;
-import org.firezenk.conceptrouter.sample.detail.DetailRoute;
+import org.firezenk.conceptrouter.sample.detail.DetailActivityRoute;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
@@ -22,11 +21,12 @@ class InfoView extends FrameLayout {
 
         findViewById(R.id.open_detail).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                final Bundle bundle = new Bundle();
-                bundle.putString("model1", "hi!");
-                bundle.putString("model2", "bye!");
+                final Object[] params = new Object[3];
+                params[0] = "This is the detail param 0";
+                params[1] = " and this is the detail param 1 ";
+                params[2] = 101;
 
-                ConceptRouter.get().routeTo(getContext(), new Route(DetailRoute.class, bundle));
+                ConceptRouter.get().routeTo(getContext(), new Route(DetailActivityRoute.class, params));
             }
         });
     }

@@ -35,7 +35,11 @@ public class ConceptRouter {
         final Route prev = history.isEmpty() ? null : history.get(history.size() - 1).viewHistory.peek();
         try {
             if (prev == null || route.viewParent == null || !prev.equals(route)) {
-                ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
+
+                if (route.bundle != null)
+                    ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
+                else
+                    ((org.firezenk.conceptrouter.processor.interfaces.Routable) route.clazz.newInstance()).route(context, route.params, route.viewParent);
 
                 if (history.size() == 0)
                     createStartRoute();
@@ -45,7 +49,9 @@ public class ConceptRouter {
                     createViewRoute(route);
             }
         } catch (ParameterNotFoundException | NotEnoughParametersException
-                | InstantiationException | IllegalAccessException e) {
+                | InstantiationException | IllegalAccessException
+                | org.firezenk.conceptrouter.processor.exceptions.NotEnoughParametersException
+                | org.firezenk.conceptrouter.processor.exceptions.ParameterNotFoundException e) {
             e.printStackTrace();
         }
     }

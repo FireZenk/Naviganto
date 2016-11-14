@@ -15,10 +15,11 @@ A small routing library for Android
 
 ###DESCRIPTION:
 
-_ConceptRouter_ consists of 3 main classes:
+_ConceptRouter_ consists of 5 main classes:
 - `ConceptRouter` which is in charge of navigate between views (`Activity` or `View`).
 - `Route` that contains the desired route.
-- `Routable` the interface that is implemented for each of our `Route`s.
+- `@RoutableActivity` and `@RoutableView` to use auto-routes.
+- `Routable` the interface that is implemented for each of our _custom_ `Route`s.
 
 Additionally, two custom exceptions are provided for make the debugging easier:
 - `ParameterNotFoundException` launched when not found a path parameter that we need.
@@ -26,17 +27,19 @@ Additionally, two custom exceptions are provided for make the debugging easier:
 
 ###USAGE
 
+#### 1. Route to the target view
+
 There are two cases when using the router:
 - Route to a another `Activity`
-- Route to a different `View` inside the `Activity` 
+- Route to a different `View` inside the `Activity`
 
 ```java
-// Navigate to another Activity
+// Navigate to another Activity; Bundle for custom routes or Object[] for auto-routes
 ConceptRouter.get().routeTo(this, new Route(DetailRoute.class, bundle));
 ```
 
 ```java
-// Navigate to a View
+// Navigate to a View; Bundle for custom routes or Object[] for auto-routes
 ConceptRouter.get().routeTo(this, new Route(ProductRoute.class, bundle, placeholder));
 ```
 
@@ -52,7 +55,25 @@ Besides this, in our `Activity` have to specify the following (to enable "back b
 
 In all the above cases should be understood `this` as `Context`
 
-Finally, to implement a route, implement from the `Routable` the following method:
+##### 2. Mark the target view as Route
+
+Finally, to implement a route, there are two ways to use this library since version 2.0:
+
+1 - Use auto-routes (remember to rebuild to generate the routes):
+
+```java
+@RoutableActivity({...}) // for Activities {parameter types separated by commas} (generates SomeActivityRoute.java)
+public class SomeActivity extends AppCompatActivity {
+
+}
+
+@RoutableView({...}) // for Views {Parameter types separated by commas} (generates SomeViewRoute.java)
+class SomeView extends FrameLayout {
+
+}
+```
+
+2 - Or implement your custom routes from the `Routable` the following method:
 
 ```java
 @Override public void route(@NonNull Context context, @NonNull Bundle parameters, @Nullable Object viewParent)
@@ -61,13 +82,23 @@ Finally, to implement a route, implement from the `Routable` the following metho
 }
 ```
 
-Sample `Routable` implementations:
+Sample `Auto-route` and `Routable` implementations:
 
-[Implementation for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/DetailRoute.java)
+[Auto-route for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/DetailActivity.java)
+
+[Implementation for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/home/HomeRoute.java)
+
+[Auto-route for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/product/ProductView.java)
 
 [Implementation for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/profile/ProfileRoute.java)
 
 ###ADDITIONAL NOTES
 
 - No, it is not contemplated the use of fragments, although it is possible (using `View` sample)
+- I recommend to use auto-routes (available since version 2.0) because you can avoid to use `Parcelables`
 - For more info an samples, see `sample` module
+
+
+###CHANGES
+
+[See CHANGES.md](https://github.com/FireZenk/ConceptRouter/blob/master/CHANGES.md)

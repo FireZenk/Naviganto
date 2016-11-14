@@ -86,9 +86,9 @@ Sample `Auto-route` and `Routable` implementations:
 
 [Auto-route for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/DetailActivity.java)
 
-[Implementation for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/HomeRoute.java)
+[Implementation for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/home/HomeRoute.java)
 
-[Auto-route for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/profile/ProductView.java)
+[Auto-route for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/product/ProductView.java)
 
 [Implementation for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/profile/ProfileRoute.java)
 

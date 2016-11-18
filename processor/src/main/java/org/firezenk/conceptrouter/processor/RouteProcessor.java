@@ -2,6 +2,7 @@ package org.firezenk.conceptrouter.processor;
 
 import com.google.auto.service.AutoService;
 import com.google.common.collect.ImmutableSet;
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -12,9 +13,11 @@ import org.firezenk.conceptrouter.processor.exceptions.NotEnoughParametersExcept
 import org.firezenk.conceptrouter.processor.exceptions.ParameterNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Generated;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
@@ -26,7 +29,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypesException;
-import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 
@@ -59,27 +61,22 @@ public class RouteProcessor extends AbstractProcessor {
     }
 
     @Override public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-        for (Element element :  env.getElementsAnnotatedWith(RoutableActivity.class)) {
-            JavaFile javaFile = this.generateRoute((TypeElement) element);
-            try {
-                javaFile.writeTo(filer);
-            } catch (Exception e) {
-                messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        for (Element element :  env.getElementsAnnotatedWith(RoutableView.class)) {
-            JavaFile javaFile = this.generateRoute((TypeElement) element);
-            try {
-                javaFile.writeTo(filer);
-            } catch (Exception e) {
-                messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        return true;
+        final Collection<Element> annotated = new ArrayList<>();
+        annotated.addAll(env.getElementsAnnotatedWith(RoutableActivity.class));
+        annotated.addAll(env.getElementsAnnotatedWith(RoutableView.class));
+        return annotated.stream()
+                .map(element -> (TypeElement) element)
+                .map(this::generateRoute)
+                .map(javaFile -> {
+                    try {
+                        javaFile.writeTo(filer);
+                    } catch (Exception e) {
+                        messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+        .count() > 0;
     }
 
     private JavaFile generateRoute(TypeElement typeElement) {
@@ -93,6 +90,7 @@ public class RouteProcessor extends AbstractProcessor {
 
         messager.printMessage(Diagnostic.Kind.NOTE, "Save location: " +
                 typeElement.getQualifiedName().toString().replace("."+typeElement.getSimpleName(), ""));
+
         return JavaFile.builder(
                 typeElement.getQualifiedName().toString().replace("."+typeElement.getSimpleName(), ""),
                 myClass).build();
@@ -236,13 +234,16 @@ public class RouteProcessor extends AbstractProcessor {
     private TypeSpec createRoute(TypeElement typeElement, ArrayList<MethodSpec> methods) {
         messager.printMessage(Diagnostic.Kind.NOTE, "Saving route file...");
         return TypeSpec.classBuilder(typeElement.getSimpleName() + "Route")
+                .addAnnotation(AnnotationSpec.builder(Generated.class)
+                        .addMember("value", "$S", "Navigator")
+                        .build())
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(org.firezenk.conceptrouter.processor.interfaces.Routable.class)
                 .addMethods(methods)
                 .build();
     }
 
-    private List<TypeMirror> getParameters(RoutableActivity annotation) {
+    @SuppressWarnings("unchecked") private List<TypeMirror> getParameters(RoutableActivity annotation) {
         try {
             annotation.value();
         } catch (MirroredTypesException e) {
@@ -251,7 +252,7 @@ public class RouteProcessor extends AbstractProcessor {
         return null;
     }
 
-    private List<TypeMirror> getParameters(RoutableView annotation) {
+    @SuppressWarnings("unchecked") private List<TypeMirror> getParameters(RoutableView annotation) {
         try {
             annotation.value();
         } catch (MirroredTypesException e) {

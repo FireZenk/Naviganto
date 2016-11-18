@@ -10,6 +10,7 @@ A small routing library for Android
 	dependencies {
 			...
 			compile 'org.firezenk:conceptrouter:{last_version}@aar'
+			provided 'javax.annotation:jsr250-api:1.0'
 	}
 ```
 

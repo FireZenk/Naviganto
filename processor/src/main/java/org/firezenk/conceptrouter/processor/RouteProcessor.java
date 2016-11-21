@@ -235,7 +235,7 @@ public class RouteProcessor extends AbstractProcessor {
         messager.printMessage(Diagnostic.Kind.NOTE, "Saving route file...");
         return TypeSpec.classBuilder(typeElement.getSimpleName() + "Route")
                 .addAnnotation(AnnotationSpec.builder(Generated.class)
-                        .addMember("value", "$S", "Navigator")
+                        .addMember("value", "$S", this.getClass().getName())
                         .build())
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(org.firezenk.conceptrouter.processor.interfaces.Routable.class)

@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         minSdkVersion 15
@@ -10,6 +10,7 @@ android {
         versionCode 6
         versionName "2.0.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false

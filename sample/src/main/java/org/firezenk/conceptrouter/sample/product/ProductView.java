@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import org.firezenk.conceptrouter.processor.annotations.RoutableView;
+import org.firezenk.conceptrouter.annotations.RoutableView;
 import org.firezenk.conceptrouter.sample.R;
 
 /**

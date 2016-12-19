@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
-import org.firezenk.conceptrouter.processor.annotations.RoutableActivity;
+import org.firezenk.conceptrouter.annotations.RoutableActivity;
 import org.firezenk.conceptrouter.sample.R;
 import org.firezenk.conceptrouter.sample.home.HomeRoute;
-import org.firezenk.conceptrouter.sample.product.ProductViewRoute;
+//import org.firezenk.conceptrouter.sample.product.ProductViewRoute;
 import org.firezenk.conceptrouter.sample.profile.ProfileRoute;
 
 import java.util.Random;

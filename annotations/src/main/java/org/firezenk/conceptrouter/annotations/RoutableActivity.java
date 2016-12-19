@@ -1,4 +1,4 @@
-package org.firezenk.conceptrouter.processor.annotations;
+package org.firezenk.conceptrouter.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface RoutableView {
+public @interface RoutableActivity {
 
     Class[] value();
 }

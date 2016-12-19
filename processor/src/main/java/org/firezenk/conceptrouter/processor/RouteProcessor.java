@@ -7,8 +7,8 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
-import org.firezenk.conceptrouter.processor.annotations.RoutableActivity;
-import org.firezenk.conceptrouter.processor.annotations.RoutableView;
+import org.firezenk.conceptrouter.annotations.RoutableActivity;
+import org.firezenk.conceptrouter.annotations.RoutableView;
 import org.firezenk.conceptrouter.processor.exceptions.NotEnoughParametersException;
 import org.firezenk.conceptrouter.processor.exceptions.ParameterNotFoundException;
 
@@ -61,22 +61,27 @@ public class RouteProcessor extends AbstractProcessor {
     }
 
     @Override public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-        final Collection<Element> annotated = new ArrayList<>();
-        annotated.addAll(env.getElementsAnnotatedWith(RoutableActivity.class));
-        annotated.addAll(env.getElementsAnnotatedWith(RoutableView.class));
-        return annotated.stream()
-                .map(element -> (TypeElement) element)
-                .map(this::generateRoute)
-                .map(javaFile -> {
-                    try {
-                        javaFile.writeTo(filer);
-                    } catch (Exception e) {
-                        messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
-                        e.printStackTrace();
-                    }
-                    return null;
-                })
-        .count() > 0;
+        for (Element element :  env.getElementsAnnotatedWith(RoutableActivity.class)) {
+            JavaFile javaFile = this.generateRoute((TypeElement) element);
+            try {
+                javaFile.writeTo(filer);
+            } catch (Exception e) {
+                messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        for (Element element :  env.getElementsAnnotatedWith(RoutableView.class)) {
+            JavaFile javaFile = this.generateRoute((TypeElement) element);
+            try {
+                javaFile.writeTo(filer);
+            } catch (Exception e) {
+                messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return true;
     }
 
     private JavaFile generateRoute(TypeElement typeElement) {

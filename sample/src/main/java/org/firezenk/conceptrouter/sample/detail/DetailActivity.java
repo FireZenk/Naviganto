@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import org.firezenk.conceptrouter.library.ConceptRouter;
 import org.firezenk.conceptrouter.library.Route;
-import org.firezenk.conceptrouter.annotations.RoutableActivity;
+//import org.firezenk.conceptrouter.annotations.RoutableActivity;
 import org.firezenk.conceptrouter.sample.R;
 import org.firezenk.conceptrouter.sample.home.HomeRoute;
 //import org.firezenk.conceptrouter.sample.product.ProductViewRoute;
@@ -22,7 +22,7 @@ import java.util.Random;
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
-@RoutableActivity({String.class, String.class, Integer.class})
+//@RoutableActivity({String.class, String.class, Integer.class})
 public class DetailActivity extends AppCompatActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override public void onClick(View view) {
                 final Object[] params = new Object[1];
                 params[0] = new Random().nextDouble();
-                ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductViewRoute.class, params, placeholder));
+                //ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductViewRoute.class, params, placeholder));
             }
         });
 

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import org.firezenk.conceptrouter.annotations.RoutableView;
+//import org.firezenk.conceptrouter.annotations.RoutableView;
 import org.firezenk.conceptrouter.sample.R;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
-@RoutableView({Double.class})
+//@RoutableView({Double.class})
 class ProductView extends FrameLayout {
 
     private static Double aDouble;

@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
         final ViewGroup placeholder = (ViewGroup) findViewById(R.id.placeholder);
 
-        ConceptRouter.get().routeTo(this, new Route(InfoRoute.class, new Bundle(), placeholder));
+        ConceptRouter.get().routeTo(this, new Route<>(InfoRoute.class, new Bundle(), placeholder));
     }
 
     @Override public void onBackPressed() {

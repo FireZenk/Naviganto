@@ -40,17 +40,17 @@ public class DetailActivity extends AppCompatActivity {
             @Override public void onClick(View view) {
                 final Object[] params = new Object[1];
                 params[0] = new Random().nextDouble();
-                ConceptRouter.get().routeTo(DetailActivity.this, new Route(ProductViewRoute.class, params, placeholder));
+                ConceptRouter.get().routeTo(DetailActivity.this, new Route<>(ProductViewRoute.class, params, placeholder));
             }
         });
 
         actButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                ConceptRouter.get().routeTo(DetailActivity.this, new Route(HomeRoute.class, new Bundle()));
+                ConceptRouter.get().routeTo(DetailActivity.this, new Route<>(HomeRoute.class, new Bundle()));
             }
         });
 
-        ConceptRouter.get().routeTo(this, new Route(ProfileRoute.class, new Bundle(), placeholder));
+        ConceptRouter.get().routeTo(this, new Route<>(ProfileRoute.class, new Bundle(), placeholder));
     }
 
     @Override public void onBackPressed() {

@@ -1,7 +1,6 @@
 package org.firezenk.conceptrouter.library;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
-public class ConceptRouter {
+public class ConceptRouter<C> {
 
     private static ConceptRouter INSTANCE;
 
@@ -18,20 +17,20 @@ public class ConceptRouter {
 
     private class ComplexRoute {
 
-        Route route;
-        ArrayDeque<Route> viewHistory = new ArrayDeque<>();
+        final Route route;
+        final ArrayDeque<Route> viewHistory;
 
-        ComplexRoute(@NonNull Route route, @NonNull ArrayDeque<Route> viewHistory) {
+        ComplexRoute(@Nonnull Route route, @Nonnull ArrayDeque<Route> viewHistory) {
             this.route = route;
             this.viewHistory = viewHistory;
         }
     }
 
-    public static ConceptRouter get() {
+    public static <C> ConceptRouter get() {
         return (INSTANCE == null) ? INSTANCE = new ConceptRouter() : INSTANCE;
     }
 
-    public void routeTo(@NonNull Context context, @NonNull Route route) {
+    @SuppressWarnings("unchecked") public void routeTo(@Nonnull C context, @Nonnull Route route) {
         final Route prev = history.isEmpty() ? null : history.get(history.size() - 1).viewHistory.peek();
         try {
             if (prev == null || route.viewParent == null || !prev.equals(route)) {
@@ -56,7 +55,7 @@ public class ConceptRouter {
         }
     }
 
-    public boolean back(@NonNull Context context) {
+    public boolean back(@Nonnull C context) {
         if (history.isEmpty()) {
             return false;
         } else if (history.get(getHistoryLast()).viewHistory.isEmpty()) {
@@ -83,11 +82,11 @@ public class ConceptRouter {
         history.add(new ComplexRoute(null, new ArrayDeque<Route>()));
     }
 
-    private void createIntermediateRoute(@NonNull Route route) {
+    private void createIntermediateRoute(@Nonnull Route route) {
         history.add(new ComplexRoute(route, new ArrayDeque<Route>()));
     }
 
-    private void createViewRoute(@NonNull Route route) {
+    private void createViewRoute(@Nonnull Route route) {
         history.get(getHistoryLast()).viewHistory.addFirst(route);
     }
 

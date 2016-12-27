@@ -1,6 +1,6 @@
 package org.firezenk.conceptrouter.library;
 
-import android.support.annotation.NonNull;
+import javax.annotation.Nonnull;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
  */
 public class NotEnoughParametersException extends Exception {
 
-    public NotEnoughParametersException(@NonNull String message) {
+    public NotEnoughParametersException(@Nonnull String message) {
         super(message);
     }
 }

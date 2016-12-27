@@ -13,7 +13,6 @@ import org.firezenk.conceptrouter.processor.exceptions.NotEnoughParametersExcept
 import org.firezenk.conceptrouter.processor.exceptions.ParameterNotFoundException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 

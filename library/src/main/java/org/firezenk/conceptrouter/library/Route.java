@@ -1,37 +1,36 @@
 package org.firezenk.conceptrouter.library;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
-public class Route {
+public class Route<B> {
 
-    @NonNull Class clazz;
-    @Nullable Bundle bundle;
+    @Nonnull Class clazz;
+    @Nullable B bundle;
     @Nullable Object[] params;
     @Nullable Object viewParent;
 
-    public Route(@NonNull Class clazz, @NonNull Bundle bundle) {
+    public Route(@Nonnull Class clazz, @Nonnull B bundle) {
         this.clazz = clazz;
         this.bundle = bundle;
     }
 
-    public Route(@NonNull Class clazz, @NonNull Object[] params) {
+    public Route(@Nonnull Class clazz, @Nonnull Object[] params) {
         this.clazz = clazz;
         this.params = params;
     }
 
-    public Route(@NonNull Class clazz, @NonNull Bundle bundle, @Nullable Object viewParent) {
+    public Route(@Nonnull Class clazz, @Nonnull B bundle, @Nullable Object viewParent) {
         this.clazz = clazz;
         this.bundle = bundle;
         this.viewParent = viewParent;
     }
 
-    public Route(@NonNull Class clazz, @NonNull Object[] params, @Nullable Object viewParent) {
+    public Route(@Nonnull Class clazz, @Nonnull Object[] params, @Nullable Object viewParent) {
         this.clazz = clazz;
         this.params = params;
         this.viewParent = viewParent;

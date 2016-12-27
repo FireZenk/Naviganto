@@ -8,8 +8,8 @@ android {
         applicationId "org.firezenk.conceptrouter.sample"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 8
-        versionName "2.0.2"
+        versionCode 9
+        versionName "2.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,6 +28,7 @@ repositories {
 dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305' // required to compile!
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
 
@@ -35,6 +36,5 @@ dependencies {
     compile project(path: ':processor')
     compile project(path: ':library')
 
-    //compile 'org.firezenk:conceptrouter:2.0.1@aar'
-    provided 'javax.annotation:jsr250-api:1.0'
+    //compile 'org.firezenk:conceptrouter:2.0.2@aar'
 }

@@ -1,5 +1,6 @@
 package org.firezenk.conceptrouter.sample.product;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ class ProductView extends FrameLayout {
         return tmp;
     }
 
-    public ProductView(Context context) {
+    @SuppressLint("SetTextI18n") public ProductView(Context context) {
         super(context);
         inflate(getContext(), R.layout.feature_product, this);
         ((TextView) findViewById(R.id.productId)).setText("Product " + aDouble);

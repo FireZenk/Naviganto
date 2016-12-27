@@ -14,7 +14,7 @@ import org.firezenk.conceptrouter.library.Routable;
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Project: ConceptRouter
  */
-public class ProfileRoute implements Routable {
+public class ProfileRoute<C extends Context, B extends Bundle> implements Routable<Context, Bundle> {
 
     @Override public void route(@NonNull Context context, @NonNull Bundle parameters, @Nullable Object viewParent)
             throws ParameterNotFoundException, NotEnoughParametersException {

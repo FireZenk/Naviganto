@@ -75,6 +75,10 @@ public class ConceptRouter {
         }
     }
 
+    public void clearHistory() {
+        this.history.clear();
+    }
+
     @SuppressWarnings("ConstantConditions") private void createStartRoute() {
         history.add(new ComplexRoute(null, new ArrayDeque<Route>()));
     }

@@ -31,10 +31,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
 
-    //compile project(path: ':annotations')
-    //compile project(path: ':processor')
-    //compile project(path: ':library')
+    compile project(path: ':annotations')
+    compile project(path: ':processor')
+    compile project(path: ':library')
 
-    compile 'org.firezenk:conceptrouter:2.0.1@aar'
+    //compile 'org.firezenk:conceptrouter:2.0.1@aar'
     provided 'javax.annotation:jsr250-api:1.0'
 }

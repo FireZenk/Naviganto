@@ -1,4 +1,4 @@
-# ConceptRouter
+# Naviganto
 A small routing library for Android
 
 ###GRADLE:
@@ -9,16 +9,20 @@ A small routing library for Android
 	}
 	dependencies {
 			...
-			compile 'org.firezenk.conceptrouter:annotations:1.0.0'
-			compile 'org.firezenk:conceptrouter:{last_version}@aar'
-			provided 'javax.annotation:jsr250-api:1.0'
+			provided 'javax.annotation:javax.annotation-api:1.2'
+			provided 'com.squareup:javapoet:1.8.0'
+			
+			def NVersion = '2.0.0'
+			compile "org.firezenk.naviganto:annotations:$NVersion"
+			compile "org.firezenk.naviganto:processor:$NVersion"
+			compile "org.firezenk.naviganto:library:$NVersion"
 	}
 ```
 
 ###DESCRIPTION:
 
-_ConceptRouter_ consists of 5 main classes:
-- `ConceptRouter` which is in charge of navigate between views (`Activity` or `View`).
+_Naviganto_ consists of 5 main classes:
+- `Naviganto` which is in charge of navigate between views (`Activity` or `View`).
 - `Route` that contains the desired route.
 - `@RoutableActivity` and `@RoutableView` to use auto-routes.
 - `Routable` the interface that is implemented for each of our _custom_ `Route`s.
@@ -37,12 +41,12 @@ There are two cases when using the router:
 
 ```java
 // Navigate to another Activity; Bundle for custom routes or Object[] for auto-routes
-ConceptRouter.get().routeTo(this, new Route(DetailRoute.class, bundle));
+Naviganto.get().routeTo(this, new Route(DetailRoute.class, bundle));
 ```
 
 ```java
 // Navigate to a View; Bundle for custom routes or Object[] for auto-routes
-ConceptRouter.get().routeTo(this, new Route(ProductRoute.class, bundle, placeholder));
+Naviganto.get().routeTo(this, new Route(ProductRoute.class, bundle, placeholder));
 ```
 
 As we can see the only difference is that if we need to navigate to a `View`, we need to serve a placeholder.
@@ -50,7 +54,7 @@ Besides this, in our `Activity` have to specify the following (to enable "back b
 
 ```java
 @Override public void onBackPressed() {
-	if (!ConceptRouter.get().back(this))
+	if (!Naviganto.get().back(this))
 		super.onBackPressed();
 }
 ```
@@ -86,13 +90,13 @@ class SomeView extends FrameLayout {
 
 Sample `Auto-route` and `Routable` implementations:
 
-[Auto-route for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/DetailActivity.java)
+[Auto-route for Activity](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/DetailActivity.java)
 
-[Implementation for Activity](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/home/HomeRoute.java)
+[Implementation for Activity](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/home/HomeRoute.java)
 
-[Auto-route for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/product/ProductView.java)
+[Auto-route for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/product/ProductView.java)
 
-[Implementation for View](https://github.com/FireZenk/ConceptRouter/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/profile/ProfileRoute.java)
+[Implementation for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/profile/ProfileRoute.java)
 
 ###ADDITIONAL NOTES
 
@@ -103,4 +107,4 @@ Sample `Auto-route` and `Routable` implementations:
 
 ###CHANGES
 
-[See CHANGES.md](https://github.com/FireZenk/ConceptRouter/blob/master/CHANGES.md)
+[See CHANGES.md](https://github.com/FireZenk/Naviganto/blob/master/CHANGES.md)

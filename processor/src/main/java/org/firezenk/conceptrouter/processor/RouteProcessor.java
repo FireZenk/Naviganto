@@ -1,7 +1,6 @@
 package org.firezenk.conceptrouter.processor;
 
 import com.google.auto.service.AutoService;
-import com.google.common.collect.ImmutableSet;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -13,6 +12,8 @@ import org.firezenk.conceptrouter.processor.exceptions.NotEnoughParametersExcept
 import org.firezenk.conceptrouter.processor.exceptions.ParameterNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,9 +51,10 @@ public class RouteProcessor extends AbstractProcessor {
     }
 
     @Override public Set<String> getSupportedAnnotationTypes() {
-        return ImmutableSet.of(
-                RoutableActivity.class.getCanonicalName(),
-                RoutableView.class.getCanonicalName());
+        final Set<String> set = new HashSet<>();
+        set.add(RoutableActivity.class.getCanonicalName());
+        set.add(RoutableView.class.getCanonicalName());
+        return Collections.unmodifiableSet(set);
     }
 
     @Override public SourceVersion getSupportedSourceVersion() {

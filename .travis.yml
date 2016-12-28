@@ -7,8 +7,19 @@ android:
     - tools
     - build-tools-23.0.3
     - android-23
-    - sys-img-x86-android-23
-    - add-on
-    - extra
-  licenses:
-    - '.+'
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+licenses:
+  - 'android-sdk-preview-license-.+'
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+
+cache:
+  directories:
+    - $HOME/.gradle
+
+before_script:
+    - GRADLE_OPTS="-Xms40m -Xmx3g -XX:MaxPermSize=3g"
+
+script: "./gradlew clean build test -Dpre-dex=false"

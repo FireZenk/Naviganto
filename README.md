@@ -41,12 +41,12 @@ There are two cases when using the router:
 
 ```java
 // Navigate to another Activity; Bundle for custom routes or Object[] for auto-routes
-Naviganto.get().routeTo(this, new Route(DetailRoute.class, bundle));
+Naviganto.get().routeTo(this, new Route<>(DetailRoute.class, bundle));
 ```
 
 ```java
 // Navigate to a View; Bundle for custom routes or Object[] for auto-routes
-Naviganto.get().routeTo(this, new Route(ProductRoute.class, bundle, placeholder));
+Naviganto.get().routeTo(this, new Route<>(ProductRoute.class, bundle, placeholder));
 ```
 
 As we can see the only difference is that if we need to navigate to a `View`, we need to serve a placeholder.

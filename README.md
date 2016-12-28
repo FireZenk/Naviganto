@@ -90,13 +90,13 @@ class SomeView extends FrameLayout {
 
 Sample `Auto-route` and `Routable` implementations:
 
-[Auto-route for Activity](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/detail/DetailActivity.java)
+[Auto-route for Activity](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/naviganto/sample/detail/DetailActivity.java)
 
-[Implementation for Activity](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/home/HomeRoute.java)
+[Implementation for Activity](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/naviganto/sample/home/HomeRoute.java)
 
-[Auto-route for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/product/ProductView.java)
+[Auto-route for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/naviganto/sample/product/ProductView.java)
 
-[Implementation for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/conceptrouter/sample/profile/ProfileRoute.java)
+[Implementation for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/naviganto/sample/profile/ProfileRoute.java)
 
 ###ADDITIONAL NOTES
 

@@ -11,10 +11,9 @@ import org.firezenk.naviganto.library.ParameterNotFoundException;
 import org.firezenk.naviganto.library.Routable;
 
 /**
- * Project: ConceptRouter2
+ * Project: Naviganto
  *
  * Created by Jorge Garrido Oval on 27/10/16.
- * Copyright © Mr.Milú 2016
  */
 public class HomeRoute<C extends Context, B extends Bundle> implements Routable<Context, Bundle> {
 

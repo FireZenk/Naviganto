@@ -20,8 +20,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 /**
+ * Project: Naviganto
+ *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
- * Project: ConceptRouter
  */
 @LargeTest
 @RunWith(AndroidJUnit4.class)

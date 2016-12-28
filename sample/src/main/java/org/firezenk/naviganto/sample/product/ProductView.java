@@ -9,8 +9,9 @@ import org.firezenk.naviganto.annotations.RoutableView;
 import org.firezenk.naviganto.sample.R;
 
 /**
+ * Project: Naviganto
+ *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
- * Project: ConceptRouter
  */
 @RoutableView({Double.class})
 class ProductView extends FrameLayout {

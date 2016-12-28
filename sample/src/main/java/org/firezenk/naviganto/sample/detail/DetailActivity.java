@@ -19,8 +19,9 @@ import org.firezenk.naviganto.sample.profile.ProfileRoute;
 import java.util.Random;
 
 /**
+ * Project: Naviganto
+ *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
- * Project: ConceptRouter
  */
 @RoutableActivity({String.class, String.class, Integer.class})
 public class DetailActivity extends AppCompatActivity {

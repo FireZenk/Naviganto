@@ -6,8 +6,9 @@ import android.widget.FrameLayout;
 import org.firezenk.naviganto.sample.R;
 
 /**
+ * Project: Naviganto
+ *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
- * Project: ConceptRouter
  */
 class ProfileView extends FrameLayout {
 

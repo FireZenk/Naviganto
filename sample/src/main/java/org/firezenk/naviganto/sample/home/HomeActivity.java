@@ -11,8 +11,9 @@ import org.firezenk.naviganto.sample.R;
 import org.firezenk.naviganto.sample.info.InfoRoute;
 
 /**
+ * Project: Naviganto
+ *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
- * Project: ConceptRouter
  */
 public class HomeActivity extends AppCompatActivity {
 

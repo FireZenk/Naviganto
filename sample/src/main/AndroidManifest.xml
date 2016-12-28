@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.firezenk.conceptrouter.sample">
+    package="org.firezenk.naviganto.sample">
 
     <application
         android:allowBackup="true"

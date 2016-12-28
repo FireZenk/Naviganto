@@ -79,12 +79,15 @@ class SomeView extends FrameLayout {
 }
 ```
 
-2 - Or implement your custom routes from the `Routable` the following method:
+2 - Or implement your custom routes from the `Routable` like this:
 
 ```java
-@Override public void route(@NonNull Context context, @NonNull Bundle parameters, @Nullable Object viewParent)
-            throws ParameterNotFoundException, NotEnoughParametersException {
-	// How to opening our Activity or View
+public class MyCustomRoute<C extends Context, B extends Bundle> implements Routable<C, B> {
+
+	@Override public void route(@NonNull Context context, @NonNull Bundle parameters, @Nullable Object viewParent)
+		    throws ParameterNotFoundException, NotEnoughParametersException {
+		// How to opening our Activity or View
+	}
 }
 ```
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Project: Naviganto
  *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
+ * Copyright © Jorge Garrido Oval 2016
  */
 public class Naviganto<C> {
 
@@ -48,7 +49,7 @@ public class Naviganto<C> {
                 else
                     createViewRoute(route);
             }
-        } catch (ParameterNotFoundException | NotEnoughParametersException
+        } catch (ClassCastException | ParameterNotFoundException | NotEnoughParametersException
                 | InstantiationException | IllegalAccessException
                 | org.firezenk.naviganto.processor.exceptions.NotEnoughParametersException
                 | org.firezenk.naviganto.processor.exceptions.ParameterNotFoundException e) {

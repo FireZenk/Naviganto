@@ -16,25 +16,22 @@ public class Route<B> {
     @Nullable Object[] params;
     @Nullable Object viewParent;
 
-    public Route(@Nonnull Class clazz, @Nonnull B bundle) {
+    @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params) {
         this.clazz = clazz;
-        this.bundle = bundle;
+        if (params instanceof Object[]) {
+            this.params = (Object[]) params;
+        } else {
+            this.bundle = (B) params;
+        }
     }
 
-    public Route(@Nonnull Class clazz, @Nonnull Object[] params) {
+    @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent) {
         this.clazz = clazz;
-        this.params = params;
-    }
-
-    public Route(@Nonnull Class clazz, @Nonnull B bundle, @Nullable Object viewParent) {
-        this.clazz = clazz;
-        this.bundle = bundle;
-        this.viewParent = viewParent;
-    }
-
-    public Route(@Nonnull Class clazz, @Nonnull Object[] params, @Nullable Object viewParent) {
-        this.clazz = clazz;
-        this.params = params;
+        if (params instanceof Object[]) {
+            this.params = (Object[]) params;
+        } else {
+            this.bundle = (B) params;
+        }
         this.viewParent = viewParent;
     }
 

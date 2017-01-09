@@ -49,11 +49,14 @@ public class Naviganto<C> {
                 else
                     createViewRoute(route);
             }
-        } catch (ClassCastException | ParameterNotFoundException | NotEnoughParametersException
+        } catch (ClassCastException e1) {
+            System.out.println("Params has to be instance of Object[] or Android's Bundle");
+            e1.printStackTrace();
+        } catch (ParameterNotFoundException | NotEnoughParametersException
                 | InstantiationException | IllegalAccessException
                 | org.firezenk.naviganto.processor.exceptions.NotEnoughParametersException
-                | org.firezenk.naviganto.processor.exceptions.ParameterNotFoundException e) {
-            e.printStackTrace();
+                | org.firezenk.naviganto.processor.exceptions.ParameterNotFoundException e2) {
+            e2.printStackTrace();
         }
     }
 

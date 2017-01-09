@@ -1,8 +1,8 @@
-# Naviganto 
+# Naviganto
 A small routing library for Android
 
-[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58638e1a030a610100a8b4ed&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58638e1a030a610100a8b4ed/build/latest?branch=master) 
-[![Build Status](https://travis-ci.org/FireZenk/Naviganto.svg?branch=master)](https://travis-ci.org/FireZenk/Naviganto) 
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58638e1a030a610100a8b4ed&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58638e1a030a610100a8b4ed/build/latest?branch=master)
+[![Build Status](https://travis-ci.org/FireZenk/Naviganto.svg?branch=master)](https://travis-ci.org/FireZenk/Naviganto)
 [![Code Climate](https://codeclimate.com/github/FireZenk/Naviganto/badges/gpa.svg)](https://codeclimate.com/github/FireZenk/Naviganto)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
@@ -17,8 +17,8 @@ A small routing library for Android
 			...
 			provided 'javax.annotation:javax.annotation-api:1.2'
 			provided 'com.squareup:javapoet:1.8.0'
-			
-			def NVersion = '2.0.0'
+
+			def NVersion = '2.0.1'
 			compile "org.firezenk.naviganto:annotations:$NVersion"
 			compile "org.firezenk.naviganto:processor:$NVersion"
 			compile "org.firezenk.naviganto:library:$NVersion"

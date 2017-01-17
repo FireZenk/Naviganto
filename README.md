@@ -18,7 +18,7 @@ A small routing library for Android
 			provided 'javax.annotation:javax.annotation-api:1.2'
 			provided 'com.squareup:javapoet:1.8.0'
 
-			def NVersion = '2.0.1'
+			def NVersion = '2.0.2'
 			compile "org.firezenk.naviganto:annotations:$NVersion"
 			compile "org.firezenk.naviganto:processor:$NVersion"
 			compile "org.firezenk.naviganto:library:$NVersion"

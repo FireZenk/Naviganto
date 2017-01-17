@@ -18,24 +18,24 @@ public class Route<B> {
 
     @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params) {
         this.clazz = clazz;
-        if (params instanceof Object[]) {
-            this.params = (Object[]) params;
-        } else {
-            this.bundle = (B) params;
-        }
+        this.getExtras(params);
     }
 
-    @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent) {
+    public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent) {
         this.clazz = clazz;
-        if (params instanceof Object[]) {
-            this.params = (Object[]) params;
-        } else {
-            this.bundle = (B) params;
-        }
+        this.getExtras(params);
         this.viewParent = viewParent;
     }
 
     @Override public boolean equals(Object obj) {
         return obj instanceof Route && this.clazz.equals(((Route) obj).clazz);
+    }
+
+    @SuppressWarnings("unchecked") private void getExtras(@Nonnull Object params) {
+        try {
+            this.params = (Object[]) params;
+        } catch (ClassCastException ex) {
+            this.bundle = (B) params;
+        }
     }
 }

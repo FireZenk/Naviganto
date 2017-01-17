@@ -7,8 +7,8 @@ android {
         applicationId 'org.firezenk.naviganto.sample'
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 11
-        versionName "2.0.1"
+        versionCode 12
+        versionName "2.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -49,7 +49,7 @@ dependencies {
     provided 'javax.annotation:javax.annotation-api:1.2'
     provided 'com.squareup:javapoet:1.8.0'
 
-    def NVersion = '2.0.1'
+    def NVersion = '2.0.2'
     compile "org.firezenk.naviganto:annotations:$NVersion"
     compile "org.firezenk.naviganto:processor:$NVersion"
     compile "org.firezenk.naviganto:library:$NVersion"

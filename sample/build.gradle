@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId 'org.firezenk.naviganto.sample'
         minSdkVersion 15
@@ -31,7 +31,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305' // required to compile!
     })
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
 
     // From modules
     //compile project(path: ':annotations')

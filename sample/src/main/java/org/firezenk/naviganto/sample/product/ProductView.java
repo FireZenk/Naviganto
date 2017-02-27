@@ -13,7 +13,7 @@ import org.firezenk.naviganto.sample.R;
  *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  */
-@RoutableView(params = {Double.class}, forResult = -1)
+@RoutableView(params = {Double.class}, requestCode = -1)
 class ProductView extends FrameLayout {
 
     private static Double aDouble;

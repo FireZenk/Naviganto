@@ -22,8 +22,8 @@ public @interface RoutableView {
     Class[] params();
 
     /**
-     * Define the result code for the activity
-     * @return the result code, -1 if not needed
+     * Define the request code for the activity
+     * @return the request code, -1 if not needed
      */
-    int forResult();
+    int requestCode();
 }

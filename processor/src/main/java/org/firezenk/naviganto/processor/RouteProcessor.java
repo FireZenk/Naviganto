@@ -106,14 +106,14 @@ public class RouteProcessor extends AbstractProcessor {
         messager.printMessage(Diagnostic.Kind.NOTE, "Generating route method");
 
         boolean isActivity;
-        int forResult;
+        int requestCode;
         List<TypeMirror> params;
 
         if (isActivity = (typeElement.getAnnotation(RoutableActivity.class) != null)) {
-            forResult = this.getForResult(typeElement.getAnnotation(RoutableActivity.class));
+            requestCode = this.getForResult(typeElement.getAnnotation(RoutableActivity.class));
             params = this.getParameters(typeElement.getAnnotation(RoutableActivity.class));
         } else {
-            forResult = this.getForResult(typeElement.getAnnotation(RoutableView.class));
+            requestCode = this.getForResult(typeElement.getAnnotation(RoutableView.class));
             params = this.getParameters(typeElement.getAnnotation(RoutableView.class));
         }
 
@@ -146,7 +146,7 @@ public class RouteProcessor extends AbstractProcessor {
 
             sb.append("" +
                     "  if (context instanceof android.app.Activity) {\n" +
-                    "      ((android.app.Activity) context).startActivityForResult(intent, "+ forResult +");\n" +
+                    "      ((android.app.Activity) context).startActivityForResult(intent, "+ requestCode +");\n" +
                     "  } else if (context instanceof android.content.Context) {\n" +
                     "      ((android.content.Context) context).startActivity(intent);\n" +
                     "  }\n");
@@ -277,10 +277,10 @@ public class RouteProcessor extends AbstractProcessor {
     }
 
     private int getForResult(RoutableActivity annotation) {
-        return annotation.forResult();
+        return annotation.requestCode();
     }
 
     private int getForResult(RoutableView annotation) {
-        return annotation.forResult();
+        return annotation.requestCode();
     }
 }

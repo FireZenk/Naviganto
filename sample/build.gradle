@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.0" // dot not change in order to work on TravisCI
     defaultConfig {
         applicationId 'org.firezenk.naviganto.sample'
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 13
-        versionName "2.1.0"
+        versionCode 14
+        versionName "2.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,26 +31,26 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305' // required to compile!
     })
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.2.0'
 
     // From modules
-    //compile project(path: ':annotations')
-    //compile project(path: ':processor')
-    //compile project(path: ':library')
+    compile project(path: ':annotations')
+    compile project(path: ':processor')
+    compile project(path: ':library')
 
     // From libs folder
     //provided 'javax.annotation:javax.annotation-api:1.2'
     //provided 'com.squareup:javapoet:1.8.0'
-    compile files('libs/annotations.jar')
-    compile files('libs/processor.jar')
-    compile files('libs/library.jar')
+    //compile files('libs/annotations.jar')
+    //compile files('libs/processor.jar')
+    //compile files('libs/library.jar')
 
     // From gradle dependency
     provided 'javax.annotation:javax.annotation-api:1.2'
     provided 'com.squareup:javapoet:1.8.0'
 
     def NVersion = '2.1.0'
-    compile "org.firezenk.naviganto:annotations:$NVersion"
-    compile "org.firezenk.naviganto:processor:$NVersion"
-    compile "org.firezenk.naviganto:library:$NVersion"
+    //compile "org.firezenk.naviganto:annotations:$NVersion"
+    //compile "org.firezenk.naviganto:processor:$NVersion"
+    //compile "org.firezenk.naviganto:library:$NVersion"
 }

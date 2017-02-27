@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Project: Naviganto
@@ -35,7 +36,7 @@ public class Naviganto<C> {
     @SuppressWarnings("unchecked") public void routeTo(@Nonnull C context, @Nonnull Route route) {
         final Route prev = history.isEmpty() ? null : history.get(history.size() - 1).viewHistory.peek();
         try {
-            if (prev == null || route.viewParent == null || !prev.equals(route)) {
+            if (prev == null || route.viewParent == null || !areRoutesEqual(prev, route)) {
 
                 if (route.bundle != null)
                     ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
@@ -97,5 +98,12 @@ public class Naviganto<C> {
 
     private int getHistoryLast() {
         return history.size() - 1;
+    }
+
+    private boolean areRoutesEqual(Route prev, Route next) {
+        return prev.equals(next)
+                && ((prev.bundle != null && prev.bundle.equals(next.bundle))
+                || (prev.params != null && Arrays.equals(prev.params, next.params))
+        );
     }
 }

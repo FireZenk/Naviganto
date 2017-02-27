@@ -48,11 +48,17 @@ There are two cases when using the router:
 ```java
 // Navigate to another Activity; Bundle for custom routes or Object[] for auto-routes
 Naviganto.get().routeTo(this, new Route<>(DetailRoute.class, bundle));
+
+// Or if you need a result for your previous Activity
+Naviganto.get().routeTo(this, new Route<>(DetailRoute.class, bundle, requestCode));
 ```
 
 ```java
 // Navigate to a View; Bundle for custom routes or Object[] for auto-routes
 Naviganto.get().routeTo(this, new Route<>(ProductRoute.class, bundle, placeholder));
+
+// Or if you need a result for your previous Activity
+Naviganto.get().routeTo(this, new Route<>(ProductRoute.class, bundle, placeholder, requestCode));
 ```
 
 As we can see the only difference is that if we need to navigate to a `View`, we need to serve a placeholder.
@@ -74,12 +80,12 @@ Finally, to implement a route, there are two ways to use this library since vers
 1 - Use auto-routes (remember to rebuild to generate the routes):
 
 ```java
-@RoutableActivity({...}) // for Activities {parameter types separated by commas} (generates SomeActivityRoute.java)
+@RoutableActivity(params = {...}, requestCode = ...) // for Activities {parameter types separated by commas}, define requestCode as -1 if you don't need it (generates SomeActivityRoute.java)
 public class SomeActivity extends AppCompatActivity {
 
 }
 
-@RoutableView({...}) // for Views {Parameter types separated by commas} (generates SomeViewRoute.java)
+@RoutableView(params = {...}, requestCode = ...) // for Views {Parameter types separated by commas}, define requestCode as -1 if you don't need it (generates SomeViewRoute.java)
 class SomeView extends FrameLayout {
 
 }

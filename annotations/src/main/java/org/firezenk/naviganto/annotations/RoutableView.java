@@ -15,5 +15,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface RoutableView {
 
-    Class[] value();
+    /**
+     * Possible "bundle" extras
+     * @return array class types for the params
+     */
+    Class[] params();
+
+    /**
+     * Define the result code for the activity
+     * @return the result code, -1 if not needed
+     */
+    int forResult();
 }

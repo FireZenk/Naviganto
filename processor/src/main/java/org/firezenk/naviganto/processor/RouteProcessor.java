@@ -106,12 +106,16 @@ public class RouteProcessor extends AbstractProcessor {
         messager.printMessage(Diagnostic.Kind.NOTE, "Generating route method");
 
         boolean isActivity;
+        int forResult;
         List<TypeMirror> params;
 
-        if (isActivity = (typeElement.getAnnotation(RoutableActivity.class) != null))
+        if (isActivity = (typeElement.getAnnotation(RoutableActivity.class) != null)) {
+            forResult = this.getForResult(typeElement.getAnnotation(RoutableActivity.class));
             params = this.getParameters(typeElement.getAnnotation(RoutableActivity.class));
-        else
+        } else {
+            forResult = this.getForResult(typeElement.getAnnotation(RoutableView.class));
             params = this.getParameters(typeElement.getAnnotation(RoutableView.class));
+        }
 
         final StringBuilder sb = new StringBuilder();
 
@@ -140,7 +144,12 @@ public class RouteProcessor extends AbstractProcessor {
                 sb.append("  intent.putExtras(bundle);\n");
             }
 
-            sb.append("  ((android.content.Context) context).startActivity(intent);\n");
+            sb.append("" +
+                    "  if (context instanceof android.app.Activity) {\n" +
+                    "      ((android.app.Activity) context).startActivityForResult(intent, "+ forResult +");\n" +
+                    "  } else if (context instanceof android.content.Context) {\n" +
+                    "      ((android.content.Context) context).startActivity(intent);\n" +
+                    "  }\n");
         } else {
             sb.append("" +
                     "  if (viewParent == null || !(viewParent instanceof android.view.ViewGroup)) {\n" +
@@ -265,5 +274,13 @@ public class RouteProcessor extends AbstractProcessor {
             return (List<TypeMirror>) e.getTypeMirrors();
         }
         return null;
+    }
+
+    private int getForResult(RoutableActivity annotation) {
+        return annotation.forResult();
+    }
+
+    private int getForResult(RoutableView annotation) {
+        return annotation.forResult();
     }
 }

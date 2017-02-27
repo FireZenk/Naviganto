@@ -15,16 +15,30 @@ public class Route<B> {
     @Nullable B bundle;
     @Nullable Object[] params;
     @Nullable Object viewParent;
+    @Nullable Integer forResult;
 
     @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params) {
         this.clazz = clazz;
         this.getExtras(params);
     }
 
+    @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Integer forResult) {
+        this.clazz = clazz;
+        this.getExtras(params);
+        this.setForResult(forResult);
+    }
+
     public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent) {
         this.clazz = clazz;
         this.getExtras(params);
         this.viewParent = viewParent;
+    }
+
+    public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent, @Nullable Integer forResult) {
+        this.clazz = clazz;
+        this.getExtras(params);
+        this.viewParent = viewParent;
+        this.setForResult(forResult);
     }
 
     @Override public boolean equals(Object obj) {
@@ -37,5 +51,9 @@ public class Route<B> {
         } catch (ClassCastException ex) {
             this.bundle = (B) params;
         }
+    }
+
+    private void setForResult(@Nullable Integer forResult) {
+        this.forResult = forResult == null ? -1 : forResult;
     }
 }

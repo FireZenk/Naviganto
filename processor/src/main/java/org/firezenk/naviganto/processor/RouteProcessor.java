@@ -251,7 +251,7 @@ public class RouteProcessor extends AbstractProcessor {
 
     @SuppressWarnings("unchecked") private List<TypeMirror> getParameters(RoutableActivity annotation) {
         try {
-            annotation.value();
+            annotation.params(); // TODO get forResult
         } catch (MirroredTypesException e) {
             return (List<TypeMirror>) e.getTypeMirrors();
         }
@@ -260,7 +260,7 @@ public class RouteProcessor extends AbstractProcessor {
 
     @SuppressWarnings("unchecked") private List<TypeMirror> getParameters(RoutableView annotation) {
         try {
-            annotation.value();
+            annotation.params(); // TODO get forResult
         } catch (MirroredTypesException e) {
             return (List<TypeMirror>) e.getTypeMirrors();
         }

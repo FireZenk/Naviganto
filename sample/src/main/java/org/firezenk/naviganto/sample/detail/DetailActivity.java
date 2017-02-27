@@ -23,7 +23,7 @@ import java.util.Random;
  *
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  */
-@RoutableActivity({String.class, String.class, Integer.class})
+@RoutableActivity(params = {String.class, String.class, Integer.class}, forResult = -1)
 public class DetailActivity extends AppCompatActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {

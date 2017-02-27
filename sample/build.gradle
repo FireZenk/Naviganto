@@ -34,9 +34,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.1'
 
     // From modules
-    //compile project(path: ':annotations')
-    //compile project(path: ':processor')
-    //compile project(path: ':library')
+    compile project(path: ':annotations')
+    compile project(path: ':processor')
+    compile project(path: ':library')
 
     // From libs folder
     //provided 'javax.annotation:javax.annotation-api:1.2'
@@ -50,7 +50,7 @@ dependencies {
     provided 'com.squareup:javapoet:1.8.0'
 
     def NVersion = '2.0.2'
-    compile "org.firezenk.naviganto:annotations:$NVersion"
-    compile "org.firezenk.naviganto:processor:$NVersion"
-    compile "org.firezenk.naviganto:library:$NVersion"
+    //compile "org.firezenk.naviganto:annotations:$NVersion"
+    //compile "org.firezenk.naviganto:processor:$NVersion"
+    //compile "org.firezenk.naviganto:library:$NVersion"
 }

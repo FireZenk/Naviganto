@@ -16,22 +16,47 @@
     <FrameLayout
         android:id="@+id/placeholder"
         android:layout_below="@+id/title"
-        android:layout_above="@+id/next"
+        android:layout_above="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/next"
-        android:layout_above="@+id/act"
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="next"/>
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
-    <Button
-        android:id="@+id/act"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="other act"/>
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="next view"/>
+
+        <Button
+            android:id="@+id/prev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="prev view"/>
+
+        <Button
+            android:id="@+id/act"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="next act"/>
+
+        <Button
+            android:id="@+id/prev_act"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="prev activity"/>
+
+        <Button
+            android:id="@+id/times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="back n times"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

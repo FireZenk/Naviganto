@@ -118,6 +118,7 @@ Sample `Auto-route` and `Routable` implementations:
 - No, it is not contemplated the use of fragments, although it is possible (using `View` sample)
 - I recommend to use auto-routes (available since version 2.0) because you can avoid to use `Parcelables`
 - User `.clearHistory()` if you need to clear all the navigation history
+- There is some more self documented [functions here](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/naviganto/sample/profile/ProfileRoute.java)
 - For more info an samples, see `sample` module
 
 

@@ -12,7 +12,7 @@ import java.util.Arrays;
  * Created by Jorge Garrido Oval, aka firezenk on 26/10/16.
  * Copyright © Jorge Garrido Oval 2016
  */
-public class Naviganto<C> {
+public class Naviganto<C> implements INaviganto<C> {
 
     private static Naviganto INSTANCE;
 
@@ -33,7 +33,7 @@ public class Naviganto<C> {
         return (INSTANCE == null) ? INSTANCE = new Naviganto() : INSTANCE;
     }
 
-    @SuppressWarnings("unchecked") public void routeTo(@Nonnull C context, @Nonnull Route route) {
+    @Override @SuppressWarnings("unchecked") public void routeTo(@Nonnull C context, @Nonnull Route route) {
         final Route prev = history.isEmpty() ? null : history.get(history.size() - 1).viewHistory.peek();
         try {
             if (prev == null || route.viewParent == null || !areRoutesEqual(prev, route)) {
@@ -61,7 +61,7 @@ public class Naviganto<C> {
         }
     }
 
-    public boolean back(@Nonnull C context) {
+    @Override public boolean back(@Nonnull C context) {
         if (history.isEmpty()) {
             return false;
         } else if (history.get(getHistoryLast()).viewHistory.isEmpty()) {
@@ -78,6 +78,36 @@ public class Naviganto<C> {
                 return back(context);
             }
         }
+    }
+
+    @Override public boolean backTimes(@Nonnull C context, @Nonnull Integer times) {
+        try {
+            for (int i = 0; i < times; i++) {
+                if (!back(context)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Is not possible to go back " +  times +
+                                       " times, the history length is " + history.size());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override public boolean backTo(@Nonnull C context, @Nonnull Route route) {
+        if (history.isEmpty()) {
+            System.out.println("Is not possible to go back, history is empty");
+            return false;
+        }
+
+        for (int i = history.size(); i >= 0; i--) {
+            if (route.clazz.equals(history.get(getHistoryLast()).viewHistory.pop().clazz)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void clearHistory() {

@@ -43,7 +43,7 @@
             android:id="@+id/act"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="next act"/>
+            android:text="next activity"/>
 
         <Button
             android:id="@+id/prev_act"

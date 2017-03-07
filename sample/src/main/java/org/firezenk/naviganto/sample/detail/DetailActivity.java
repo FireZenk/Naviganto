@@ -29,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private int times = 0;
 
-    @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override @SuppressWarnings("unchecked") protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
@@ -47,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                updateTimesButton(timesButton, times++);
+                updateTimesButton(timesButton, ++times);
                 final Object[] params = new Object[1];
                 params[0] = new Random().nextDouble();
                 Naviganto.get().routeTo(DetailActivity.this, new Route<>(ProductViewRoute.class, params, placeholder));
@@ -56,7 +56,7 @@ public class DetailActivity extends AppCompatActivity {
 
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                updateTimesButton(timesButton, times--);
+                updateTimesButton(timesButton, --times);
                 onBackPressed();
             }
         });
@@ -73,10 +73,18 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        timesButton.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                if (Naviganto.get().backTimes(DetailActivity.this, times)) {
+                    updateTimesButton(timesButton, times = 0);
+                }
+            }
+        });
+
         Naviganto.get().routeTo(this, new Route<>(ProfileRoute.class, new Bundle(), placeholder));
     }
 
-    @Override public void onBackPressed() {
+    @Override @SuppressWarnings("unchecked") public void onBackPressed() {
         if (!Naviganto.get().back(this))
             super.onBackPressed();
     }

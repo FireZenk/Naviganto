@@ -100,14 +100,33 @@ public class Naviganto<C> implements INaviganto<C> {
         if (history.isEmpty()) {
             System.out.println("Is not possible to go back, history is empty");
             return false;
-        }
+        } else if (history.get(getHistoryLast()).viewHistory.isEmpty()) {
+            history.remove(getHistoryLast());
+            return backTo(context, route);
+        } else {
+            ComplexRoute complexRoute = history.get(getHistoryLast());
 
-        for (int i = history.size(); i >= 0; i--) {
-            if (route.clazz.equals(history.get(getHistoryLast()).viewHistory.pop().clazz)) {
+            if (history.size() == 1 && complexRoute.route == null) {
+                System.out.println("Is not possible to go back, there is no route like: "
+                                           + route.clazz.getName());
+                return false;
+            } else if (complexRoute.route.clazz.equals(route.clazz)) {
+                history.remove(getHistoryLast());
+                this.routeTo(context, complexRoute.route);
                 return true;
+            } else if (!complexRoute.viewHistory.isEmpty()) {
+                int size = complexRoute.viewHistory.size();
+                for (int i = size; i > 0; i--) {
+                    Route prevRoute = complexRoute.viewHistory.pop();
+                    if (route.clazz.equals(prevRoute.clazz)) {
+                        this.routeTo(context, prevRoute);
+                        return true;
+                    }
+                }
             }
+            history.remove(getHistoryLast());
+            return backTo(context, route);
         }
-        return false;
     }
 
     public void clearHistory() {

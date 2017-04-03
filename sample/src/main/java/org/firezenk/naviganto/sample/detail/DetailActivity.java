@@ -12,7 +12,6 @@ import org.firezenk.naviganto.annotations.RoutableActivity;
 import org.firezenk.naviganto.library.Naviganto;
 import org.firezenk.naviganto.library.Route;
 import org.firezenk.naviganto.sample.R;
-import org.firezenk.naviganto.sample.home.HomeActivity;
 import org.firezenk.naviganto.sample.home.HomeRoute;
 import org.firezenk.naviganto.sample.product.ProductViewRoute;
 import org.firezenk.naviganto.sample.profile.ProfileRoute;
@@ -29,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private int times = 0;
 
-    @Override @SuppressWarnings("unchecked") protected void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
@@ -84,7 +83,7 @@ public class DetailActivity extends AppCompatActivity {
         Naviganto.get().routeTo(this, new Route<>(ProfileRoute.class, new Bundle(), placeholder));
     }
 
-    @Override @SuppressWarnings("unchecked") public void onBackPressed() {
+    @Override public void onBackPressed() {
         if (!Naviganto.get().back(this))
             super.onBackPressed();
     }

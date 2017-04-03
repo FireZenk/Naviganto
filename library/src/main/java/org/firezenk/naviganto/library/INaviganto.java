@@ -15,14 +15,14 @@ interface INaviganto<C> {
      * @param context The Android's context (required for Android)
      * @param route The target route
      */
-    void routeTo(@Nonnull C context, @Nonnull Route route);
+    <C> void routeTo(@Nonnull C context, @Nonnull Route route);
 
     /**
      * Go back to the directly previous route
      * @param context The Android's context (required for Android)
      * @return true if go back is possible, false if is the end of navigation history
      */
-    boolean back(@Nonnull C context);
+    <C> boolean back(@Nonnull C context);
 
     /**
      * Navigate back n times
@@ -30,7 +30,7 @@ interface INaviganto<C> {
      * @param times The n times that we need to navigate backwards
      * @return true if go back n times is possible, false if is the end of navigation history
      */
-    boolean backTimes(@Nonnull C context, @Nonnull Integer times);
+    <C> boolean backTimes(@Nonnull C context, @Nonnull Integer times);
 
     /**
      * Navigate through the navigation history until find the route
@@ -38,7 +38,7 @@ interface INaviganto<C> {
      * @param route The route (params not needed) that we want to navigate back to
      * @return true if go back to this route is possible, false if it is not
      */
-    boolean backTo(@Nonnull C context, @Nonnull Route route);
+    <C> boolean backTo(@Nonnull C context, @Nonnull Route route);
 
     /**
      * Clear navigation history

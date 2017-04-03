@@ -33,7 +33,7 @@ public class Naviganto<C> implements INaviganto<C> {
         return (INSTANCE == null) ? INSTANCE = new Naviganto() : INSTANCE;
     }
 
-    @Override @SuppressWarnings("unchecked") public void routeTo(@Nonnull C context, @Nonnull Route route) {
+    @Override @SuppressWarnings("unchecked") public <C> void routeTo(@Nonnull C context, @Nonnull Route route) {
         final Route prev = history.isEmpty() ? null : history.get(history.size() - 1).viewHistory.peek();
         try {
             if (prev == null || route.viewParent == null || !areRoutesEqual(prev, route)) {
@@ -61,26 +61,24 @@ public class Naviganto<C> implements INaviganto<C> {
         }
     }
 
-    @Override public boolean back(@Nonnull C context) {
+    @Override public <C> boolean back(@Nonnull C context) {
         if (history.isEmpty()) {
             return false;
-        } else if (history.get(getHistoryLast()).viewHistory.isEmpty()) {
-            history.remove(getHistoryLast());
-
-            return false;
-        } else {
+        } else if (!history.get(getHistoryLast()).viewHistory.isEmpty()) {
             history.get(getHistoryLast()).viewHistory.pop();
 
             if (!history.get(getHistoryLast()).viewHistory.isEmpty()) {
                 this.routeTo(context, history.get(getHistoryLast()).viewHistory.pop());
                 return true;
-            } else {
-                return back(context);
             }
+        } else {
+            history.remove(getHistoryLast());
         }
+
+        return back(context);
     }
 
-    @Override public boolean backTimes(@Nonnull C context, @Nonnull Integer times) {
+    @Override public <C> boolean backTimes(@Nonnull C context, @Nonnull Integer times) {
         try {
             for (int i = 0; i < times; i++) {
                 if (!back(context)) {
@@ -96,7 +94,7 @@ public class Naviganto<C> implements INaviganto<C> {
         }
     }
 
-    @Override public boolean backTo(@Nonnull C context, @Nonnull Route route) {
+    @Override public <C> boolean backTo(@Nonnull C context, @Nonnull Route route) {
         if (history.isEmpty()) {
             System.out.println("Is not possible to go back, history is empty");
             return false;

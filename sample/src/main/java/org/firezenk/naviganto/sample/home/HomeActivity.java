@@ -23,7 +23,11 @@ public class HomeActivity extends AppCompatActivity {
 
         final ViewGroup placeholder = (ViewGroup) findViewById(R.id.placeholder);
 
-        Naviganto.get().debug(true).routeTo(this, new Route<>(InfoRoute.class, new Bundle(), placeholder));
+        if (Naviganto.get().hasHistory()) {
+            Naviganto.get().routeToLast(this, placeholder);
+        } else {
+            Naviganto.get().routeTo(this, new Route<>(InfoRoute.class, new Bundle(), placeholder));
+        }
     }
 
     @Override public void onBackPressed() {

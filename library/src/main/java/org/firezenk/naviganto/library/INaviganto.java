@@ -32,6 +32,13 @@ interface INaviganto<C> {
     <C> void routeToLast(@Nonnull C context);
 
     /**
+     * Navigate to the last route available on history refreshing the viewParent
+     * @param context The Android's context (required for Android)
+     * @param viewParent New view parent (for view recreations)
+     */
+    <C> void routeToLast(@Nonnull C context, @Nonnull Object viewParent);
+
+    /**
      * Go back to the directly previous route
      * @param context The Android's context (required for Android)
      * @return true if go back is possible, false if is the end of navigation history

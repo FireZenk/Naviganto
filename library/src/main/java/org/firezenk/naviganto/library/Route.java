@@ -56,4 +56,10 @@ public class Route<B> {
     private void setForResult(@Nullable Integer forResult) {
         this.forResult = forResult == null ? -1 : forResult;
     }
+
+    @Override public String toString() {
+        return "Route class name: " + clazz.getSimpleName() +
+                " Has bundle? " + (bundle != null) +
+                " Has params? " + (params != null);
+    }
 }

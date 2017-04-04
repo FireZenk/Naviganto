@@ -15,6 +15,8 @@ import java.util.Arrays;
 public class Naviganto<C> implements INaviganto<C> {
 
     private static Naviganto INSTANCE;
+    private static Boolean DEBUG = Boolean.FALSE;
+    private static String DEBUG_TAG = "Naviganto::";
 
     private ArrayList<ComplexRoute> history = new ArrayList<>();
 
@@ -27,10 +29,19 @@ public class Naviganto<C> implements INaviganto<C> {
             this.route = route;
             this.viewHistory = viewHistory;
         }
+
+        @Override public String toString() {
+            return route + " viewHistory size: " + viewHistory.size();
+        }
     }
 
     public static <C> Naviganto get() {
         return (INSTANCE == null) ? INSTANCE = new Naviganto() : INSTANCE;
+    }
+
+    public <C> Naviganto debug(Boolean debugMode) {
+        DEBUG = debugMode;
+        return INSTANCE;
     }
 
     @Override @SuppressWarnings("unchecked") public <C> void routeTo(@Nonnull C context, @Nonnull Route route) {
@@ -38,37 +49,44 @@ public class Naviganto<C> implements INaviganto<C> {
         try {
             if (prev == null || route.viewParent == null || !areRoutesEqual(prev, route)) {
 
-                if (route.bundle != null)
-                    ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
-                else
-                    ((org.firezenk.naviganto.processor.interfaces.Routable) route.clazz.newInstance()).route(context, route.params, route.viewParent);
+                log(" --->> Next");
+                log(" Navigating to: ", route);
 
-                if (history.size() == 0)
+                if (route.bundle != null) {
+                    ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
+                } else {
+                    ((org.firezenk.naviganto.processor.interfaces.Routable) route.clazz.newInstance()).route(context, route.params, route.viewParent);
+                }
+
+                if (history.size() == 0) {
                     createStartRoute();
-                else if (route.viewParent == null)
+                } else if (route.viewParent == null) {
                     createIntermediateRoute(route);
-                else
+                } else {
                     createViewRoute(route);
+                }
             }
         } catch (ClassCastException e1) {
-            System.out.println("Params has to be instance of Object[] or Android's Bundle");
-            e1.printStackTrace();
+            log(" Params has to be instance of Object[] or Android's Bundle ", e1);
         } catch (ParameterNotFoundException | NotEnoughParametersException
                 | InstantiationException | IllegalAccessException
                 | org.firezenk.naviganto.processor.exceptions.NotEnoughParametersException
                 | org.firezenk.naviganto.processor.exceptions.ParameterNotFoundException e2) {
-            e2.printStackTrace();
+            log(" Navigation error; ", e2);
         }
     }
 
     @Override public <C> boolean back(@Nonnull C context) {
+        log(" <<--- Back");
+        log(" History: ", history);
+
         if (history.isEmpty()) {
             return false;
         } else if (!history.get(getHistoryLast()).viewHistory.isEmpty()) {
-            history.get(getHistoryLast()).viewHistory.pop();
+            log(" Removing last: ", history.get(getHistoryLast()).viewHistory.pop());
 
             if (!history.get(getHistoryLast()).viewHistory.isEmpty()) {
-                this.routeTo(context, history.get(getHistoryLast()).viewHistory.pop());
+                routeTo(context, history.get(getHistoryLast()).viewHistory.pop());
                 return true;
             }
         } else {
@@ -89,7 +107,7 @@ public class Naviganto<C> implements INaviganto<C> {
         } catch (Exception e) {
             System.out.println("Is not possible to go back " +  times +
                                        " times, the history length is " + history.size());
-            e.printStackTrace();
+            if (DEBUG) e.printStackTrace();
             return false;
         }
     }
@@ -152,5 +170,39 @@ public class Naviganto<C> implements INaviganto<C> {
                 && ((prev.bundle != null && prev.bundle.equals(next.bundle))
                 || (prev.params != null && Arrays.equals(prev.params, next.params))
         );
+    }
+
+    private void log(String actionDesc) {
+        if (DEBUG) {
+            System.out.println(DEBUG_TAG + actionDesc);
+        }
+    }
+
+    private Route log(String actionDesc, Route route) {
+        if (DEBUG) {
+            System.out.println(DEBUG_TAG + actionDesc + route);
+        }
+        return route;
+    }
+
+    private ArrayList<ComplexRoute> log(String actionDesc, ArrayList<ComplexRoute> history) {
+        if (DEBUG) {
+            if (history.size() > 0 && history.get(getHistoryLast()) != null) {
+                System.out.println(DEBUG_TAG + actionDesc + "size: " + history.size());
+                System.out.println(DEBUG_TAG + actionDesc + "last: " + history.get(getHistoryLast()));
+                if (history.get(getHistoryLast()) != null && history.get(getHistoryLast()).viewHistory.size() > 0) {
+                    System.out.println(DEBUG_TAG + actionDesc + "internal history size: " + history.get(getHistoryLast()).viewHistory.size());
+                    System.out.println(DEBUG_TAG + actionDesc + "internal history last: " + history.get(getHistoryLast()).viewHistory.peek());
+                }
+            }
+        }
+        return history;
+    }
+
+    private void log(String actionDesc, Throwable throwable) {
+        if (DEBUG) {
+            System.out.println(DEBUG_TAG + actionDesc);
+            throwable.printStackTrace();
+        }
     }
 }

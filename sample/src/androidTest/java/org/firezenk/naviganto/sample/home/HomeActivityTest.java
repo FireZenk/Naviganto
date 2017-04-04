@@ -35,8 +35,7 @@ public class HomeActivityTest {
                 allOf(withId(R.id.open_detail), withText("Open detail activity"), isDisplayed()));
         appCompatButton.perform(click());
 
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.next), withText("next"), isDisplayed()));
+        ViewInteraction appCompatButton2 = onView(allOf(withId(R.id.next), isDisplayed()));
         appCompatButton2.perform(click());
 
         pressBack();

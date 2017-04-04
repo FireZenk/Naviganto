@@ -104,6 +104,7 @@ public class Naviganto<C> implements INaviganto<C> {
             }
         } else {
             history.remove(getHistoryLast());
+            return false;
         }
 
         return back(context);
@@ -163,7 +164,11 @@ public class Naviganto<C> implements INaviganto<C> {
     }
 
     @Override public boolean hasHistory() {
-        return !history.isEmpty();
+        if (getHistoryLast() > 0) {
+            return !history.get(getHistoryLast()).viewHistory.isEmpty();
+        } else {
+            return false;
+        }
     }
 
     @SuppressWarnings("ConstantConditions") private void createStartRoute() {

@@ -24,6 +24,13 @@ interface INaviganto<C> {
      */
     <C> void routeTo(@Nonnull C context, @Nonnull Route route);
 
+
+    /**
+     * Navigate to the last route available on history
+     * @param context The Android's context (required for Android)
+     */
+    <C> void routeToLast(@Nonnull C context);
+
     /**
      * Go back to the directly previous route
      * @param context The Android's context (required for Android)

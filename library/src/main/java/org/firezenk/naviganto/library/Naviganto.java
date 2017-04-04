@@ -78,6 +78,10 @@ public class Naviganto<C> implements INaviganto<C> {
         }
     }
 
+    @Override public <C> void routeToLast(@Nonnull C context) {
+        routeTo(context, history.get(getHistoryLast()).viewHistory.pop());
+    }
+
     @Override public <C> boolean back(@Nonnull C context) {
         log(" <<--- Back");
         log(" History: ", history);
@@ -147,7 +151,7 @@ public class Naviganto<C> implements INaviganto<C> {
         }
     }
 
-    public void clearHistory() {
+    @Override public void clearHistory() {
         history.clear();
     }
 

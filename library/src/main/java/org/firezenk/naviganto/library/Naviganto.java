@@ -60,7 +60,9 @@ public class Naviganto<C> implements INaviganto<C> {
 
                 if (history.size() == 0) {
                     createStartRoute();
-                } else if (route.viewParent == null) {
+                }
+
+                if (route.viewParent == null) {
                     createIntermediateRoute(route);
                 } else {
                     createViewRoute(route);

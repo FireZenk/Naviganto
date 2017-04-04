@@ -11,6 +11,13 @@ import javax.annotation.Nonnull;
 interface INaviganto<C> {
 
     /**
+     * Enables debug mode for all the navigation session
+     * @param debugMode true or false for all the session
+     * @return the instance
+     */
+    Naviganto debug(boolean debugMode);
+
+    /**
      * Navigate to the next route
      * @param context The Android's context (required for Android)
      * @param route The target route
@@ -44,4 +51,10 @@ interface INaviganto<C> {
      * Clear navigation history
      */
     void clearHistory();
+
+    /**
+     * Has history or not helper
+     * @return true if the history is not empty
+     */
+    boolean hasHistory();
 }

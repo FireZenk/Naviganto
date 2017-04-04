@@ -39,7 +39,7 @@ public class Naviganto<C> implements INaviganto<C> {
         return (INSTANCE == null) ? INSTANCE = new Naviganto() : INSTANCE;
     }
 
-    public <C> Naviganto debug(Boolean debugMode) {
+    public Naviganto debug(boolean debugMode) {
         DEBUG = debugMode;
         return INSTANCE;
     }
@@ -148,7 +148,11 @@ public class Naviganto<C> implements INaviganto<C> {
     }
 
     public void clearHistory() {
-        this.history.clear();
+        history.clear();
+    }
+
+    @Override public boolean hasHistory() {
+        return !history.isEmpty();
     }
 
     @SuppressWarnings("ConstantConditions") private void createStartRoute() {

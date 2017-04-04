@@ -82,10 +82,11 @@ public class Naviganto<C> implements INaviganto<C> {
         routeTo(context, history.get(getHistoryLast()).viewHistory.pop());
     }
 
-    @Override public <C1> void routeToLast(@Nonnull C1 context, @Nonnull Object viewParent) {
-        Route route = history.get(getHistoryLast()).viewHistory.pop();
-        route.viewParent = viewParent;
-        routeTo(context, route);
+    @Override public <C> void routeToLast(@Nonnull C context, @Nonnull Object viewParent) {
+        for (Route route : history.get(getHistoryLast()).viewHistory) {
+            route.viewParent = viewParent;
+        }
+        routeTo(context, history.get(getHistoryLast()).viewHistory.pop());
     }
 
     @Override public <C> boolean back(@Nonnull C context) {

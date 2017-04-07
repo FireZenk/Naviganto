@@ -7,7 +7,7 @@ A small routing library for Android
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 
-###GRADLE:
+### GRADLE:
 ```groovy
 	repositories {
 	    	...
@@ -18,14 +18,14 @@ A small routing library for Android
 			provided 'javax.annotation:javax.annotation-api:1.2'
 			provided 'com.squareup:javapoet:1.8.0'
 
-			def NVersion = '2.2.0'
+			def NVersion = '2.3.4'
 			compile "org.firezenk.naviganto:annotations:$NVersion"
 			compile "org.firezenk.naviganto:processor:$NVersion"
 			compile "org.firezenk.naviganto:library:$NVersion"
 	}
 ```
 
-###DESCRIPTION:
+### DESCRIPTION:
 
 _Naviganto_ consists of 5 main classes:
 - `Naviganto` which is in charge of navigate between views (`Activity` or `View`).
@@ -37,7 +37,7 @@ Additionally, two custom exceptions are provided for make the debugging easier:
 - `ParameterNotFoundException` launched when not found a path parameter that we need.
 - `NotEnoughParametersException` which is launched if the route has not received all the necessary parameters.
 
-###USAGE
+### USAGE
 
 #### 1. Route to the target view
 
@@ -113,7 +113,7 @@ Sample `Auto-route` and `Routable` implementations:
 
 [Implementation for View](https://github.com/FireZenk/Naviganto/blob/master/sample/src/main/java/org/firezenk/naviganto/sample/profile/ProfileRoute.java)
 
-###ADDITIONAL NOTES
+### ADDITIONAL NOTES
 
 - No, it is not contemplated the use of fragments, although it is possible (using `View` sample)
 - I recommend to use auto-routes (available since version 2.0) because you can avoid to use `Parcelables`
@@ -122,6 +122,6 @@ Sample `Auto-route` and `Routable` implementations:
 - For more info an samples, see `sample` module
 
 
-###CHANGES
+### CHANGES
 
 [See CHANGES.md](https://github.com/FireZenk/Naviganto/blob/master/CHANGES.md)

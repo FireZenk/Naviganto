@@ -62,7 +62,7 @@ public class Naviganto<C> implements INaviganto<C> {
                     createStartRoute();
                 }
 
-                if (route.viewParent == null) {
+                if (route.viewParent == null || route.isRootView) {
                     createIntermediateRoute(route);
                 } else {
                     createViewRoute(route);

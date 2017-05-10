@@ -136,15 +136,7 @@ public class Naviganto<C> implements INaviganto<C> {
         } else {
             ComplexRoute complexRoute = history.get(getHistoryLast());
 
-            if (history.size() == 1 && complexRoute.route == null) {
-                System.out.println("Is not possible to go back, there is no route like: "
-                                           + route.clazz.getName());
-                return false;
-            } else if (complexRoute.route.clazz.equals(route.clazz)) {
-                history.remove(getHistoryLast());
-                this.routeTo(context, complexRoute.route);
-                return true;
-            } else if (!complexRoute.viewHistory.isEmpty()) {
+            if (!complexRoute.viewHistory.isEmpty()) {
                 int size = complexRoute.viewHistory.size();
                 for (int i = size; i > 0; i--) {
                     Route prevRoute = complexRoute.viewHistory.pop();
@@ -153,6 +145,14 @@ public class Naviganto<C> implements INaviganto<C> {
                         return true;
                     }
                 }
+            } else if (complexRoute.route.clazz.equals(route.clazz)) {
+                history.remove(getHistoryLast());
+                this.routeTo(context, complexRoute.route);
+                return true;
+            } else {
+                System.out.println("Is not possible to go back, there is no route like: "
+                                           + route.clazz.getName());
+                return false;
             }
             history.remove(getHistoryLast());
             return backTo(context, route);

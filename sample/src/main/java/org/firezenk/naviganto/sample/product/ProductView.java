@@ -8,6 +8,8 @@ import android.widget.TextView;
 import org.firezenk.naviganto.annotations.RoutableView;
 import org.firezenk.naviganto.sample.R;
 
+import java.util.UUID;
+
 /**
  * Project: Naviganto
  *
@@ -18,7 +20,7 @@ class ProductView extends FrameLayout {
 
     private static Double aDouble;
 
-    public static ProductView newInstance(Context context, Double aDouble) {
+    public static ProductView newInstance(Context context, UUID uuid, Double aDouble) {
         final ProductView tmp = new ProductView(context);
         ProductView.aDouble = aDouble; // cause didactic purposes, better pass to a presenter
         return tmp;

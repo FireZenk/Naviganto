@@ -6,6 +6,3 @@ dependencies {
     compile 'javax.annotation:javax.annotation-api:1.2'
     compile project(path: ':annotations')
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"

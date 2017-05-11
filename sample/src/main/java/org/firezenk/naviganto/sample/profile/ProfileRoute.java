@@ -10,6 +10,8 @@ import org.firezenk.naviganto.library.NotEnoughParametersException;
 import org.firezenk.naviganto.library.ParameterNotFoundException;
 import org.firezenk.naviganto.library.Routable;
 
+import java.util.UUID;
+
 /**
  * Project: Naviganto
  *
@@ -17,7 +19,7 @@ import org.firezenk.naviganto.library.Routable;
  */
 public class ProfileRoute<C extends Context, B extends Bundle> implements Routable<Context, Bundle> {
 
-    @Override public void route(@NonNull Context context, @NonNull Bundle parameters, @Nullable Object viewParent)
+    @Override public void route(@NonNull Context context, UUID uuid, @NonNull Bundle parameters, @Nullable Object viewParent)
             throws ParameterNotFoundException, NotEnoughParametersException {
 
         if (viewParent == null)

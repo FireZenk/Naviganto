@@ -1,5 +1,7 @@
 package org.firezenk.naviganto.library;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -11,63 +13,39 @@ import javax.annotation.Nullable;
  */
 public class Route<B> {
 
+    final UUID uuid;
     @Nonnull Class clazz;
     @Nullable B bundle;
     @Nullable Object[] params;
     @Nullable Object viewParent;
     @Nullable private Integer forResult;
-    @Nonnull Boolean isRootView = Boolean.FALSE;
 
     @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params) {
+        this.uuid = UUID.randomUUID();
         this.clazz = clazz;
         this.getExtras(params);
-    }
-
-    @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params, @Nonnull Boolean isRootView) {
-        this.clazz = clazz;
-        this.getExtras(params);
-        this.isRootView = isRootView;
     }
 
     @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Integer forResult) {
+        this.uuid = UUID.randomUUID();
         this.clazz = clazz;
         this.getExtras(params);
         this.setForResult(forResult);
-    }
-
-    @SuppressWarnings("unchecked") public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Integer forResult, @Nonnull Boolean isRootView) {
-        this.clazz = clazz;
-        this.getExtras(params);
-        this.setForResult(forResult);
-        this.isRootView = isRootView;
     }
 
     public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent) {
+        this.uuid = UUID.randomUUID();
         this.clazz = clazz;
         this.getExtras(params);
         this.viewParent = viewParent;
-    }
-
-    public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent, @Nonnull Boolean isRootView) {
-        this.clazz = clazz;
-        this.getExtras(params);
-        this.viewParent = viewParent;
-        this.isRootView = isRootView;
     }
 
     public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent, @Nullable Integer forResult) {
+        this.uuid = UUID.randomUUID();
         this.clazz = clazz;
         this.getExtras(params);
         this.viewParent = viewParent;
         this.setForResult(forResult);
-    }
-
-    public Route(@Nonnull Class clazz, @Nonnull Object params, @Nullable Object viewParent, @Nullable Integer forResult, @Nonnull Boolean isRootView) {
-        this.clazz = clazz;
-        this.getExtras(params);
-        this.viewParent = viewParent;
-        this.setForResult(forResult);
-        this.isRootView = isRootView;
     }
 
     @Override public boolean equals(Object obj) {

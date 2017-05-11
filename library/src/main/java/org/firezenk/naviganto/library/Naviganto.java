@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * Project: Naviganto
@@ -53,16 +54,16 @@ public class Naviganto<C> implements INaviganto<C> {
                 log(" Navigating to: ", route);
 
                 if (route.bundle != null) {
-                    ((Routable) route.clazz.newInstance()).route(context, route.bundle, route.viewParent);
+                    ((Routable) route.clazz.newInstance()).route(context, route.uuid, route.bundle, route.viewParent);
                 } else {
-                    ((org.firezenk.naviganto.processor.interfaces.Routable) route.clazz.newInstance()).route(context, route.params, route.viewParent);
+                    ((org.firezenk.naviganto.processor.interfaces.Routable) route.clazz.newInstance()).route(context, route.uuid, route.params, route.viewParent);
                 }
 
                 if (history.size() == 0) {
                     createStartRoute();
                 }
 
-                if (route.viewParent == null || route.isRootView) {
+                if (route.viewParent == null) {
                     createIntermediateRoute(route);
                 } else {
                     createViewRoute(route);

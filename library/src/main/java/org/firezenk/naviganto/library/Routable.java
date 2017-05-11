@@ -1,5 +1,7 @@
 package org.firezenk.naviganto.library;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -11,6 +13,6 @@ import javax.annotation.Nullable;
  */
 public interface Routable<C, B> {
 
-    void route(@Nonnull C context, @Nonnull B parameters, @Nullable Object viewParent)
+    void route(@Nonnull C context, UUID uuid, @Nonnull B parameters, @Nullable Object viewParent)
             throws ParameterNotFoundException, NotEnoughParametersException;
 }

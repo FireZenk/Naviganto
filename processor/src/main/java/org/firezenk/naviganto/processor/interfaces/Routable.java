@@ -3,6 +3,8 @@ package org.firezenk.naviganto.processor.interfaces;
 import org.firezenk.naviganto.processor.exceptions.NotEnoughParametersException;
 import org.firezenk.naviganto.processor.exceptions.ParameterNotFoundException;
 
+import java.util.UUID;
+
 /**
  * Project: Naviganto
  *
@@ -11,6 +13,6 @@ import org.firezenk.naviganto.processor.exceptions.ParameterNotFoundException;
  */
 public interface Routable {
 
-    void route(Object context, Object[] parameters, Object viewParent)
+    void route(Object context, UUID uuid, Object[] parameters, Object viewParent)
             throws ParameterNotFoundException, NotEnoughParametersException;
 }

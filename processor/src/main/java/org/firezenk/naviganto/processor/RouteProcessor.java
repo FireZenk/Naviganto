@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.Generated;
 import javax.annotation.processing.AbstractProcessor;
@@ -138,11 +139,14 @@ public class RouteProcessor extends AbstractProcessor {
         if (isActivity) {
             sb.append("  final android.content.Intent intent = new android.content.Intent((android.content.Context) context, " + typeElement.getSimpleName() + ".class);\n");
 
+            sb.append("  android.os.Bundle bundle = new android.os.Bundle();\n\n");
+            sb.append("  bundle.putString(\"uuid\", uuid.toString());\n");
+
             if (params.size() > 0) {
-                sb.append("  android.os.Bundle bundle = new android.os.Bundle();\n\n");
                 sb.append(this.parametersToBundle(params));
-                sb.append("  intent.putExtras(bundle);\n");
             }
+
+            sb.append("  intent.putExtras(bundle);\n");
 
             sb.append("" +
                     "  if (context instanceof android.app.Activity) {\n" +
@@ -159,11 +163,11 @@ public class RouteProcessor extends AbstractProcessor {
             if (params.size() > 0) {
                 sb.append("" +
                         "  ((android.view.ViewGroup) viewParent).removeAllViews();\n" +
-                        "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context " + this.parametersToString(params) + "));\n");
+                        "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context, uuid" + this.parametersToString(params) + "));\n");
             } else {
                 sb.append("" +
                         "  ((android.view.ViewGroup) viewParent).removeAllViews();\n" +
-                        "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context));\n");
+                        "  ((android.view.ViewGroup) viewParent).addView(" + typeElement.getSimpleName() + ".newInstance((android.content.Context) context, uuid));\n");
             }
         }
 
@@ -176,6 +180,7 @@ public class RouteProcessor extends AbstractProcessor {
                 .addException(NotEnoughParametersException.class)
                 .returns(void.class)
                 .addParameter(Object.class, "context")
+                .addParameter(UUID.class, "uuid")
                 .addParameter(Object[].class, "parameters")
                 .addParameter(Object.class, "viewParent")
                 .addCode(sb.toString())

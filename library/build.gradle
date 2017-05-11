@@ -4,3 +4,6 @@ dependencies {
     compile 'com.google.code.findbugs:jsr305:3.0.0'
     compile project(path: ':processor')
 }
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

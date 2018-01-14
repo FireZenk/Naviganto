@@ -5,7 +5,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 /**
  * Project: Naviganto
@@ -15,6 +14,7 @@ import java.util.UUID;
  */
 public class Naviganto<C> implements INaviganto<C> {
 
+    private static Consumer<String> LOGGING_READER = null;
     private static Naviganto INSTANCE;
     private static Boolean DEBUG = Boolean.FALSE;
     private static String DEBUG_TAG = "Naviganto::";
@@ -38,6 +38,10 @@ public class Naviganto<C> implements INaviganto<C> {
 
     public static <C> Naviganto get() {
         return (INSTANCE == null) ? INSTANCE = new Naviganto() : INSTANCE;
+    }
+
+    @Override public void setLoggingReader(Consumer<String> loggingReader) {
+        LOGGING_READER=loggingReader;
     }
 
     public Naviganto debug(boolean debugMode) {
@@ -120,7 +124,7 @@ public class Naviganto<C> implements INaviganto<C> {
             }
             return true;
         } catch (Exception e) {
-            System.out.println("Is not possible to go back " +  times +
+            print("Is not possible to go back " +  times +
                                        " times, the history length is " + history.size());
             if (DEBUG) e.printStackTrace();
             return false;
@@ -129,7 +133,7 @@ public class Naviganto<C> implements INaviganto<C> {
 
     @Override public <C> boolean backTo(@Nonnull C context, @Nonnull Route route) {
         if (history.isEmpty()) {
-            System.out.println("Is not possible to go back, history is empty");
+            print("Is not possible to go back, history is empty");
             return false;
         } else if (history.get(getHistoryLast()).viewHistory.isEmpty()) {
             history.remove(getHistoryLast());
@@ -151,7 +155,7 @@ public class Naviganto<C> implements INaviganto<C> {
                 this.routeTo(context, complexRoute.route);
                 return true;
             } else {
-                System.out.println("Is not possible to go back, there is no route like: "
+                print("Is not possible to go back, there is no route like: "
                                            + route.clazz.getName());
                 return false;
             }
@@ -191,15 +195,24 @@ public class Naviganto<C> implements INaviganto<C> {
         );
     }
 
+    private void print(String actionDesc) {
+        String printMessage=DEBUG_TAG + actionDesc;
+        if(LOGGING_READER != null){
+            LOGGING_READER.accept(printMessage);
+        }else {
+            System.out.println(printMessage);
+        }
+    }
+
     private void log(String actionDesc) {
         if (DEBUG) {
-            System.out.println(DEBUG_TAG + actionDesc);
+            print(actionDesc);
         }
     }
 
     private Route log(String actionDesc, Route route) {
         if (DEBUG) {
-            System.out.println(DEBUG_TAG + actionDesc + route);
+            print(actionDesc + route);
         }
         return route;
     }
@@ -207,11 +220,11 @@ public class Naviganto<C> implements INaviganto<C> {
     private ArrayList<ComplexRoute> log(String actionDesc, ArrayList<ComplexRoute> history) {
         if (DEBUG) {
             if (history.size() > 0 && history.get(getHistoryLast()) != null) {
-                System.out.println(DEBUG_TAG + actionDesc + "size: " + history.size());
-                System.out.println(DEBUG_TAG + actionDesc + "last: " + history.get(getHistoryLast()));
+                print(actionDesc + "size: " + history.size());
+                print(actionDesc + "last: " + history.get(getHistoryLast()));
                 if (history.get(getHistoryLast()) != null && history.get(getHistoryLast()).viewHistory.size() > 0) {
-                    System.out.println(DEBUG_TAG + actionDesc + "internal history size: " + history.get(getHistoryLast()).viewHistory.size());
-                    System.out.println(DEBUG_TAG + actionDesc + "internal history last: " + history.get(getHistoryLast()).viewHistory.peek());
+                    print(actionDesc + "internal history size: " + history.get(getHistoryLast()).viewHistory.size());
+                    print(actionDesc + "internal history last: " + history.get(getHistoryLast()).viewHistory.peek());
                 }
             }
         }
@@ -220,7 +233,7 @@ public class Naviganto<C> implements INaviganto<C> {
 
     private void log(String actionDesc, Throwable throwable) {
         if (DEBUG) {
-            System.out.println(DEBUG_TAG + actionDesc);
+            print(actionDesc);
             throwable.printStackTrace();
         }
     }

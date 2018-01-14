@@ -11,6 +11,13 @@ import javax.annotation.Nonnull;
 interface INaviganto<C> {
 
     /**
+     * Set a consumer to read all debug messages
+     * This will override the default System.out output
+     * @param loggingReader custom string consumer
+     */
+    void setLoggingReader(Consumer<String> loggingReader);
+
+    /**
      * Enables debug mode for all the navigation session
      * @param debugMode true or false for all the session
      * @return the instance
